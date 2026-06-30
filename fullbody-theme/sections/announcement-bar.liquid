@@ -1,0 +1,94 @@
+<div class="announcement-bar" style="background:{{ section.settings.background_color }};color:{{ section.settings.text_color }};">
+  <div class="container announcement-bar__inner">
+    {% for block in section.blocks %}
+      <span class="announcement-bar__item" {{ block.shopify_attributes }}>
+        {% if block.settings.show_icon %}
+          {% render 'icon', icon: 'leaf', size: 16 %}
+        {% endif %}
+        {{ block.settings.text }}
+      </span>
+      {% unless forloop.last %}
+        <span class="announcement-bar__sep" aria-hidden="true">|</span>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+.announcement-bar {
+  text-align: center;
+  padding-block: 10px;
+}
+
+.announcement-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.announcement-bar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.announcement-bar__sep {
+  opacity: 0.6;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "פס הכרזה",
+  "tag": "section",
+  "class": "section-announcement-bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "צבע רקע",
+      "default": "#1B9849"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "צבע טקסט",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "פריט",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "הצג אייקון עלה",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "טקסט",
+          "default": "מוצרי Herbalife מקוריים"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "פס הכרזה",
+      "blocks": [
+        { "type": "item", "settings": { "text": "מוצרי Herbalife מקוריים" } },
+        { "type": "item", "settings": { "text": "משלוח חינם מעל ₪299" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

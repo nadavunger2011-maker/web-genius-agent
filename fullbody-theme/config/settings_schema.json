@@ -1,0 +1,178 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "FullBody Herbalife",
+    "theme_version": "1.0.0",
+    "theme_author": "FullBody",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "צבעים",
+    "settings": [
+      {
+        "type": "header",
+        "content": "צבע מותג (Primary) — ירוק בלבד"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary",
+        "info": "צבע המותג. משמש בכל מקום: כפתורים, אייקונים, הדגשות, פס הכרזה, CTA.",
+        "default": "#1B9849"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary Dark (לגרדיאנט Hero/CTA)",
+        "default": "#146B37"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_foreground",
+        "label": "טקסט על גבי Primary",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "צבעי בסיס"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "רקע כללי",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "color",
+        "id": "color_foreground",
+        "label": "טקסט ראשי",
+        "default": "#22262A"
+      },
+      {
+        "type": "color",
+        "id": "color_card",
+        "label": "כרטיס / רקע לבן",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "משני / Muted background",
+        "default": "#F1F5F9"
+      },
+      {
+        "type": "color",
+        "id": "color_muted_foreground",
+        "label": "טקסט מעומעם",
+        "default": "#66737F"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border / Input",
+        "default": "#E0E6EB"
+      },
+      {
+        "type": "header",
+        "content": "שגיאה (לשימוש בהודעות שגיאה בלבד)"
+      },
+      {
+        "type": "color",
+        "id": "color_error",
+        "label": "צבע שגיאה",
+        "info": "צבע זה משמש אך ורק להודעות שגיאה — לעולם לא לכפתורים/הדגשות.",
+        "default": "#EF4343"
+      }
+    ]
+  },
+  {
+    "name": "טיפוגרפיה",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "הפונט בכל התבנית הוא Open Sans (משקלים 300–900), עם תמיכה מלאה ב-RTL. לא ניתן להחלפה בהגדרות אלו על מנת לשמר נאמנות מוחלטת לעיצוב המקור."
+      }
+    ]
+  },
+  {
+    "name": "פרטי יצירת קשר",
+    "settings": [
+      {
+        "type": "text",
+        "id": "owner_name",
+        "label": "שם בעל העסק",
+        "default": "נדב אונגר"
+      },
+      {
+        "type": "text",
+        "id": "header_phone",
+        "label": "טלפון (מוצג בכותרת העליונה)",
+        "default": "054-2008578"
+      },
+      {
+        "type": "text",
+        "id": "footer_phone",
+        "label": "טלפון (מוצג בפוטר)",
+        "default": "052-4487537"
+      },
+      {
+        "type": "text",
+        "id": "company_id",
+        "label": "ח.פ",
+        "default": "200353720"
+      },
+      {
+        "type": "text",
+        "id": "address",
+        "label": "כתובת",
+        "default": "זרחין 1 רעננה"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "אימייל",
+        "default": "info@fullbody.co.il"
+      },
+      {
+        "type": "text",
+        "id": "hours_weekday",
+        "label": "שעות פעילות (א'-ה')",
+        "default": "א'-ה׳: 09:00-18:00"
+      },
+      {
+        "type": "text",
+        "id": "hours_friday",
+        "label": "שעות פעילות (ו')",
+        "default": "ו': 09:00-13:00"
+      }
+    ]
+  },
+  {
+    "name": "עגלת קניות",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "cart_upsell_collection",
+        "label": "קולקציה להמלצות \"אולי תאהב גם\" בעגלה"
+      }
+    ]
+  },
+  {
+    "name": "וואטסאפ",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_whatsapp_button",
+        "label": "הצג כפתור וואטסאפ צף",
+        "default": true
+      },
+      {
+        "type": "url",
+        "id": "whatsapp_link",
+        "label": "קישור וואטסאפ",
+        "default": "https://wa.link/0g4tht"
+      }
+    ]
+  }
+]

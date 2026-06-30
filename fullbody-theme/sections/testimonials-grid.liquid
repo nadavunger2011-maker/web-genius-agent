@@ -1,0 +1,158 @@
+<section class="testimonials-grid section-lg">
+  <div class="container">
+    <div class="testimonials-grid__header">
+      <h2>{{ section.settings.heading }}</h2>
+      <p class="fb-text-secondary">{{ section.settings.subtext }}</p>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="testimonials-grid__grid">
+        {% for block in section.blocks %}
+          {% liquid
+            assign initial = block.settings.name | slice: 0, 1
+          %}
+          <div class="testimonials-grid__card card" {{ block.shopify_attributes }}>
+            <div class="testimonials-grid__quote-icon">
+              {% render 'icon', icon: 'quote', size: 28 %}
+            </div>
+            <div class="testimonials-grid__stars">
+              {% for i in (1..5) %}
+                {% render 'icon', icon: 'star', size: 16 %}
+              {% endfor %}
+            </div>
+            <p class="testimonials-grid__text">{{ block.settings.text }}</p>
+            <div class="testimonials-grid__author">
+              <span class="testimonials-grid__avatar">{{ initial }}</span>
+              <span class="testimonials-grid__name">{{ block.settings.name }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.testimonials-grid__header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.testimonials-grid__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 640px) {
+  .testimonials-grid__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-grid__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.testimonials-grid__card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonials-grid__quote-icon {
+  color: var(--color-primary);
+  opacity: 0.2;
+  transform: rotate(180deg);
+  margin-bottom: 8px;
+}
+
+.testimonials-grid__stars {
+  display: flex;
+  gap: 2px;
+  color: var(--color-rating);
+  margin-bottom: 12px;
+}
+
+.testimonials-grid__stars svg {
+  fill: currentColor;
+}
+
+.testimonials-grid__text {
+  font-size: 14px;
+  color: var(--color-foreground);
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.testimonials-grid__author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.testimonials-grid__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.testimonials-grid__name {
+  font-weight: 600;
+  font-size: 14px;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "סיפורי הצלחה (גריד)",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "כותרת",
+      "default": "סיפורי הצלחה"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "טקסט משנה",
+      "default": "לקוחות אמיתיים משתפים את הדרך שלהם"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "המלצה",
+      "settings": [
+        { "type": "text", "id": "name", "label": "שם" },
+        { "type": "textarea", "id": "text", "label": "טקסט המלצה" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "סיפורי הצלחה (גריד)",
+      "blocks": [
+        { "type": "testimonial", "settings": { "name": "מיכל ד.", "text": "תמיד אהבתי את איך שאני נראית אבל אף פעם לא הצלחתי להתמיד ולהגיע למטרה שלי... עד שהתחלתי את התוכנית של פולבודי עם הרבלייף." } },
+        { "type": "testimonial", "settings": { "name": "דניאל א.", "text": "נכון שהגעתי לגוף החלומות שלי והשלתי את הקילוגרמים המיותרים, אבל הבנתי שהאנרגטיות, החיוניות והרעננות שקיבלתי בבקרים חשובות אפילו יותר." } },
+        { "type": "testimonial", "settings": { "name": "יעל ק.", "text": "שמתי בעבר המון פוקוס רק על אימונים וספורט ומעט מדי על תזונה. כאן הפכתי את המשוואה, קיבלתי ליווי מדויק והתוצאות האמיתיות סוף סוף הגיעו." } },
+        { "type": "testimonial", "settings": { "name": "רוני מ.", "text": "לא היה לי זמן להכין אוכל, חייתי על קפה ונשנושים מהירים. השייקים והתוכנית של הרבלייף הביאו לי פתרון בריא, מזין ובלי מאמץ. זה מה שעשה את כל ההבדל." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

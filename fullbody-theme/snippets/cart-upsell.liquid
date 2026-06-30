@@ -1,0 +1,42 @@
+{%- comment -%}
+  "✨ אולי תאהב גם" — shows up to 2 products from a merchant-chosen
+  upsell collection that aren't already in the cart.
+  Collection is configured in the cart-drawer theme setting (see settings_schema).
+{%- endcomment -%}
+{%- liquid
+  assign upsell_collection = collections[settings.cart_upsell_collection]
+  assign shown = 0
+-%}
+{% if upsell_collection and upsell_collection.products.size > 0 %}
+  <div style="margin-top:8px;">
+    <h3 class="fb-h4" style="margin-bottom:10px;">✨ אולי תאהב גם</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      {% for product in upsell_collection.products %}
+        {% assign in_cart = false %}
+        {% for item in cart.items %}
+          {% if item.product_id == product.id %}
+            {% assign in_cart = true %}
+          {% endif %}
+        {% endfor %}
+        {% if in_cart == false and shown < 2 %}
+          {% assign shown = shown | plus: 1 %}
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:8px;">
+            <a href="{{ product.url }}" style="width:48px;height:48px;border-radius:var(--radius-sm);overflow:hidden;flex-shrink:0;background:var(--color-muted);">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | image_url: width: 96 }}" alt="{{ product.title | escape }}" width="48" height="48" style="object-fit:cover;width:100%;height:100%;">
+              {% endif %}
+            </a>
+            <div style="flex:1;min-width:0;">
+              <a href="{{ product.url }}" class="fb-text-secondary line-clamp-2" style="color:var(--color-foreground);">{{ product.title }}</a>
+              <div style="font-weight:700;font-size:14px;">{{ product.price | money }}</div>
+            </div>
+            <form action="/cart/add" method="post" encType="multipart/form-data">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="btn-icon btn-outline" style="width:32px;height:32px;" aria-label="הוסף לעגלה">+</button>
+            </form>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,94 @@
+<div class="benefits-bar">
+  <div class="container benefits-bar__inner">
+    {% for block in section.blocks %}
+      <div class="benefits-bar__item {% if forloop.index == 2 %}benefits-bar__item--divided{% endif %}" {{ block.shopify_attributes }}>
+        {% render 'icon', icon: block.settings.icon, size: 16, class: 'benefits-bar__icon' %}
+        <span>{{ block.settings.text }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+.benefits-bar {
+  background: color-mix(in srgb, var(--color-muted) 40%, var(--color-background));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.benefits-bar__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-block: 10px;
+}
+
+.benefits-bar__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .benefits-bar__item {
+    font-size: 14px;
+  }
+}
+
+.benefits-bar__item--divided {
+  border-inline: 1px solid var(--color-border);
+}
+
+.benefits-bar__icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "פס יתרונות",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "יתרון",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "אייקון",
+          "options": [
+            { "value": "truck", "label": "משאית" },
+            { "value": "heart-pulse", "label": "לב פועם" },
+            { "value": "shield-check", "label": "מגן" },
+            { "value": "leaf", "label": "עלה" },
+            { "value": "dumbbell", "label": "משקולת" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "טקסט",
+          "default": "משלוח חינם מעל ₪299"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "פס יתרונות",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "truck", "text": "משלוח חינם מעל ₪299" } },
+        { "type": "item", "settings": { "icon": "heart-pulse", "text": "ליווי אישי לכל לקוח" } },
+        { "type": "item", "settings": { "icon": "shield-check", "text": "רכישה מאובטחת" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

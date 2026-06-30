@@ -1,0 +1,27 @@
+{%- comment -%}
+  Floating/centered search — opens as a modal overlaid near the top of the
+  viewport, matching the source's centered search popup (pt-32, max-w-2xl).
+{%- endcomment -%}
+<div class="search-modal-overlay" data-search-overlay>
+  <div class="search-modal" role="dialog" aria-modal="true" aria-label="חיפוש">
+    <form action="/search" method="get" role="search" style="display:flex;gap:8px;">
+      <input type="hidden" name="type" value="product">
+      <div style="position:relative;flex:1;">
+        <span style="position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);color:var(--color-muted-foreground);">
+          {% render 'icon', icon: 'search', size: 18 %}
+        </span>
+        <input
+          type="search"
+          name="q"
+          data-search-input
+          placeholder="חיפוש מוצרים..."
+          autocomplete="off"
+          style="width:100%;height:44px;padding-inline-start:38px;padding-inline-end:12px;border-radius:var(--radius-sm);border:1px solid var(--color-border);font-size:16px;"
+        >
+      </div>
+      <button type="button" class="btn-icon btn-ghost" data-search-close aria-label="סגור">
+        {% render 'icon', icon: 'x' %}
+      </button>
+    </form>
+  </div>
+</div>

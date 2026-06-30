@@ -1,0 +1,239 @@
+{
+  "sections": {
+    "benefits-bar": {
+      "type": "benefits-bar",
+      "blocks": {
+        "item1": { "type": "item", "settings": { "icon": "truck", "text": "משלוח חינם מעל ₪299" } },
+        "item2": { "type": "item", "settings": { "icon": "heart-pulse", "text": "ליווי אישי לכל לקוח" } },
+        "item3": { "type": "item", "settings": { "icon": "shield-check", "text": "רכישה מאובטחת" } }
+      },
+      "block_order": ["item1", "item2", "item3"]
+    },
+    "hero-carousel": {
+      "type": "hero-carousel",
+      "blocks": {
+        "slide1": { "type": "slide", "settings": { "alt": "פולבאדי - מוצרי הרבלייף כשר למהדרין, אבקת חלבון H24 ותוספי תזונה לספורטאים" } },
+        "slide2": { "type": "slide", "settings": { "alt": "שייקי הרבלייף Formula 1 ואבקת חלבון H24 בכשר למהדרין - פולבאדי ישראל" } }
+      },
+      "block_order": ["slide1", "slide2"]
+    },
+    "trust-factors": {
+      "type": "trust-factors",
+      "blocks": {
+        "logo1": { "type": "logo", "settings": { "alt": "פולבאדי - מוצרי הרבלייף באישור משרד הבריאות הישראלי" } },
+        "logo2": { "type": "logo", "settings": { "alt": "פולבאדי - הרבלייף ספק התזונה הרשמי של הוועד האולימפי בישראל" } },
+        "logo3": { "type": "logo", "settings": { "alt": "פולבאדי - משווק מורשה מטעם הרבלייף ישראל" } },
+        "logo4": { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - ONE ו-TheMarker" } },
+        "logo5": { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - כלכליסט ו-ynet" } },
+        "logo6": { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - ישראל היום וגלובס" } },
+        "logo7": { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - וואלה ומעריב" } }
+      },
+      "block_order": ["logo1", "logo2", "logo3", "logo4", "logo5", "logo6", "logo7"]
+    },
+    "trust-badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge1": { "type": "badge", "settings": { "icon": "leaf", "title": "מוצרים מקוריים", "text": "Herbalife מקורי 100%" } },
+        "badge2": { "type": "badge", "settings": { "icon": "truck", "title": "משלוח מהיר", "text": "עד 3 ימי עסקים" } },
+        "badge3": { "type": "badge", "settings": { "icon": "shield-check", "title": "תשלום מאובטח", "text": "SSL מוצפן" } },
+        "badge4": { "type": "badge", "settings": { "icon": "dumbbell", "title": "ייעוץ מקצועי", "text": "ליווי אישי ותוכנית תזונה" } }
+      },
+      "block_order": ["badge1", "badge2", "badge3", "badge4"]
+    },
+    "product-catalog": {
+      "type": "product-catalog",
+      "blocks": {
+        "pill1": { "type": "category_pill", "settings": { "label": "הכל" } },
+        "pill2": { "type": "category_pill", "settings": { "label": "אבקות חלבון" } },
+        "pill3": { "type": "category_pill", "settings": { "label": "ספורט ואנרגיה" } },
+        "pill4": { "type": "category_pill", "settings": { "label": "חטיפי חלבון" } },
+        "pill5": { "type": "category_pill", "settings": { "label": "ויטמינים ומינרלים" } },
+        "pill6": { "type": "category_pill", "settings": { "label": "תה ומשקאות" } },
+        "pill7": { "type": "category_pill", "settings": { "label": "עיכול והידרציה" } }
+      },
+      "block_order": ["pill1", "pill2", "pill3", "pill4", "pill5", "pill6", "pill7"]
+    },
+    "why-herbalife": {
+      "type": "why-herbalife",
+      "blocks": {
+        "reason1": { "type": "reason", "settings": { "icon": "leaf", "title": "רכיבים טבעיים", "text": "מוצרים מבוססי מדע עם רכיבים טבעיים ואיכותיים, ללא חומרים מיותרים." } },
+        "reason2": { "type": "reason", "settings": { "icon": "dumbbell", "title": "תזונת ספורט", "text": "קו מוצרי H24 לספורטאים — חלבון, אנרגיה וריהידרציה לביצועים מיטביים." } },
+        "reason3": { "type": "reason", "settings": { "icon": "zap", "title": "שליטה במשקל", "text": "תוכניות תזונה מוכחות לשליטה במשקל עם ליווי מקצועי ותוצאות." } }
+      },
+      "block_order": ["reason1", "reason2", "reason3"]
+    },
+    "testimonials-grid": {
+      "type": "testimonials-grid",
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "name": "מיכל ד.", "text": "תמיד אהבתי את איך שאני נראית אבל אף פעם לא הצלחתי להתמיד ולהגיע למטרה שלי... עד שהתחלתי את התוכנית של פולבודי עם הרבלייף." } },
+        "t2": { "type": "testimonial", "settings": { "name": "דניאל א.", "text": "נכון שהגעתי לגוף החלומות שלי והשלתי את הקילוגרמים המיותרים, אבל הבנתי שהאנרגטיות, החיוניות והרעננות שקיבלתי בבקרים חשובות אפילו יותר." } },
+        "t3": { "type": "testimonial", "settings": { "name": "יעל ק.", "text": "שמתי בעבר המון פוקוס רק על אימונים וספורט ומעט מדי על תזונה. כאן הפכתי את המשוואה, קיבלתי ליווי מדויק והתוצאות האמיתיות סוף סוף הגיעו." } },
+        "t4": { "type": "testimonial", "settings": { "name": "רוני מ.", "text": "לא היה לי זמן להכין אוכל, חייתי על קפה ונשנושים מהירים. השייקים והתוכנית של הרבלייף הביאו לי פתרון בריא, מזין ובלי מאמץ. זה מה שעשה את כל ההבדל." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "testimonial-slider": {
+      "type": "testimonial-slider",
+      "blocks": {
+        "story1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "הדר כהן",
+            "age": 28,
+            "category_icon": "trending-down",
+            "category_label": "שליטה במשקל",
+            "quote": "הפחתתי 35.5 ק\"ג וירדתי 6 מידות מכנסיים, מ-46 ל-36. למדתי לשמור על אורח חיים בריא ופעיל באמצעות שימוש נכון במוצרים והכוונה מהמאמן שלי.",
+            "result": "הפחתה של 35.5 ק\"ג",
+            "rating": 5
+          }
+        },
+        "story2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "יובל לוי",
+            "age": 24,
+            "category_icon": "leaf",
+            "category_label": "תזונה יומית",
+            "quote": "ההישגים הם בראש ובראשונה הביטחון שלי, השמחה שלי והסיפוק. קיבלתי את החיים שלי בחזרה, ואני אוהבת שאני עוסקת בתחום שמאפשר לי לעזור לאנשים.",
+            "result": "ביטחון וסיפוק",
+            "rating": 5
+          }
+        },
+        "story3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "ספיר מהצרי",
+            "age": 30,
+            "category_icon": "trending-down",
+            "category_label": "שליטה במשקל",
+            "quote": "הפחתתי 28 ק\"ג ו-19 אחוזי שומן. האוכל כבר לא אויב שלי, קיבלתי שליטה על החיים שלי והביצועים הספורטיביים השתפרו באופן מדהים.",
+            "result": "הפחתה של 28 ק\"ג",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": ["story1", "story2", "story3"]
+    },
+    "success-by-numbers": {
+      "type": "success-by-numbers",
+      "blocks": {
+        "stat1": { "type": "stat", "settings": { "icon": "trending-down", "value": "35.5", "suffix": "ק\"ג", "label": "הפחתה מקסימלית" } },
+        "stat2": { "type": "stat", "settings": { "icon": "users", "value": "6", "suffix": "", "label": "סיפורי הצלחה" } },
+        "stat3": { "type": "stat", "settings": { "icon": "award", "value": "48", "suffix": "ק\"ג", "label": "שיא הפחתה - רועי" } },
+        "stat4": { "type": "stat", "settings": { "icon": "heart", "value": "19%", "suffix": "", "label": "ירידה באחוזי שומן" } }
+      },
+      "block_order": ["stat1", "stat2", "stat3", "stat4"]
+    },
+    "cross-category-fitness": {
+      "type": "cross-category-fitness",
+      "blocks": {
+        "cat1": {
+          "type": "category",
+          "settings": {
+            "icon": "trending-down",
+            "title": "שליטה במשקל",
+            "description": "שייקי Formula 1 ותוספי תזונה לתמיכה בהפחתת משקל בריאה ומבוקרת.",
+            "testimonial_1_name": "גיל קרן",
+            "testimonial_1_age": 47,
+            "testimonial_1_quote": "הפחתתי כ-21 ק\"ג וצמצמתי כ-70 ס\"מ בהיקפים. אני מרגיש הרבה יותר אנרגטי, ערני וקליל. המטרה שלי היא להמשיך עד שאראה קוביות בבטן.",
+            "testimonial_1_result": "הפחתה של 21 ק\"ג",
+            "testimonial_2_name": "הדר כהן",
+            "testimonial_2_age": 28,
+            "testimonial_2_quote": "הפחתתי 35.5 ק\"ג וירדתי 6 מידות מכנסיים, מ-46 ל-36. למדתי לשמור על אורח חיים בריא ופעיל באמצעות שימוש נכון במוצרים והכוונה מהמאמן שלי.",
+            "testimonial_2_result": "הפחתה של 35.5 ק\"ג",
+            "testimonial_3_name": "רחלי ליברמן",
+            "testimonial_3_age": 29,
+            "testimonial_3_quote": "הפחתתי 25 ק\"ג ומעלה מ-14% אחוזי שומן. בעזרת הליווי והמעטפת התומכת שקיבלתי, הגעתי לצמצום משמעותי בהיקפים.",
+            "testimonial_3_result": "הפחתה של 25 ק\"ג",
+            "testimonial_4_name": "רועי חייט",
+            "testimonial_4_age": 21,
+            "testimonial_4_quote": "הפחתתי 48 ק\"ג ו-27 אחוזי שומן. לפני שבחרתי את הדרך, עמדתי בפני ניתוח קיבה. נתתי צ'אנס להרבלייף ועבד בגדול!",
+            "testimonial_4_result": "הפחתה של 48 ק\"ג"
+          }
+        },
+        "cat2": {
+          "type": "category",
+          "settings": {
+            "icon": "zap",
+            "title": "תזונה יומית וחיוניות",
+            "description": "ויטמינים, מינרלים ותוספים לאנרגיה יומית ותחושת חיוניות.",
+            "testimonial_1_name": "יובל לוי",
+            "testimonial_1_age": 24,
+            "testimonial_1_quote": "ההישגים הם בראש ובראשונה הביטחון שלי, השמחה שלי והסיפוק. קיבלתי את החיים שלי בחזרה, ואני אוהבת שאני עוסקת בתחום שמאפשר לי לעזור לאנשים.",
+            "testimonial_1_result": "ביטחון וסיפוק"
+          }
+        },
+        "cat3": {
+          "type": "category",
+          "settings": {
+            "icon": "dumbbell",
+            "title": "ספורט וביצועים",
+            "description": "קו H24 לספורטאים — חלבון, התאוששות ואנרגיה לביצועים מיטביים.",
+            "testimonial_1_name": "ספיר מהצרי",
+            "testimonial_1_age": 30,
+            "testimonial_1_quote": "הפחתתי 28 ק\"ג ו-19 אחוזי שומן. האוכל כבר לא אויב שלי, קיבלתי שליטה על החיים שלי והביצועים הספורטיביים השתפרו באופן מדהים.",
+            "testimonial_1_result": "הפחתה של 28 ק\"ג"
+          }
+        }
+      },
+      "block_order": ["cat1", "cat2", "cat3"]
+    },
+    "homepage-reviews": {
+      "type": "homepage-reviews"
+    },
+    "blog-articles": {
+      "type": "blog-articles",
+      "blocks": {
+        "post1": {
+          "type": "article",
+          "settings": {
+            "category": "כושר ואימונים",
+            "date": "28 במרץ 2026",
+            "read_time": "7 דק'",
+            "title": "חלבון לאחר אימון: המדריך המלא להתאוששות מיטבית",
+            "excerpt": "מה הכמות הנכונה של חלבון אחרי אימון, מתי כדאי לצרוך אותו ואילו מקורות חלבון הכי יעילים להתאוששות השרירים."
+          }
+        },
+        "post2": {
+          "type": "article",
+          "settings": {
+            "category": "תזונה בריאה",
+            "date": "25 במרץ 2026",
+            "read_time": "6 דק'",
+            "title": "שייקים תחליפי ארוחה: כל מה שצריך לדעת",
+            "excerpt": "יתרונות, חסרונות וטיפים לשילוב נכון של שייקים תחליפי ארוחה בתפריט היומי שלכם לאורח חיים בריא ומאוזן."
+          }
+        },
+        "post3": {
+          "type": "article",
+          "settings": {
+            "category": "ניהול משקל",
+            "date": "20 במרץ 2026",
+            "read_time": "5 דק'",
+            "title": "10 טיפים לניהול משקל בריא שעובדים",
+            "excerpt": "אסטרטגיות מוכחות ומבוססות מדע לניהול משקל לטווח ארוך, ללא דיאטות קיצוניות וללא תחושת רעב מתמדת."
+          }
+        }
+      },
+      "block_order": ["post1", "post2", "post3"]
+    },
+    "final-cta": {
+      "type": "final-cta"
+    }
+  },
+  "order": [
+    "benefits-bar",
+    "hero-carousel",
+    "trust-factors",
+    "trust-badges",
+    "product-catalog",
+    "why-herbalife",
+    "testimonials-grid",
+    "testimonial-slider",
+    "success-by-numbers",
+    "cross-category-fitness",
+    "homepage-reviews",
+    "blog-articles",
+    "final-cta"
+  ]
+}

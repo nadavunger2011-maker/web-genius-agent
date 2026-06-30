@@ -1,0 +1,362 @@
+{%- liquid
+  assign menu = linklists[section.settings.main_menu]
+-%}
+
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+
+    {%- comment -%} Right side (RTL leading edge): hamburger + logo + owner/phone {%- endcomment -%}
+    <div class="site-header__start">
+      <button type="button" class="btn-icon btn-ghost site-header__hamburger" data-mobile-menu-toggle aria-label="תפריט">
+        {% render 'icon', icon: 'menu' %}
+      </button>
+
+      <a href="{{ routes.root_url }}" class="site-header__logo">
+        {% if section.settings.logo != blank %}
+          <img
+            src="{{ section.settings.logo | image_url: width: 300 }}"
+            alt="{{ shop.name }}"
+            width="{{ section.settings.logo_width }}"
+            height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | default: section.settings.logo_width }}"
+          >
+        {% else %}
+          <span class="site-header__logo-placeholder">FullBody</span>
+        {% endif %}
+      </a>
+
+      <div class="site-header__owner">
+        <span>{{ settings.owner_name }}</span>
+        <span aria-hidden="true">·</span>
+        <a href="tel:{{ settings.header_phone | remove: '-' }}">{{ settings.header_phone }}</a>
+      </div>
+    </div>
+
+    {%- comment -%} Center: horizontal nav {%- endcomment -%}
+    <nav class="site-header__nav" aria-label="ניווט ראשי">
+      <ul>
+        <li><a href="{{ routes.root_url }}">ראשי</a></li>
+        {% if menu %}
+          {% for link in menu.links %}
+            {% if link.links.size > 0 %}
+              <li class="site-header__nav-dropdown" data-nav-dropdown>
+                <button type="button" class="site-header__nav-dropdown-trigger" data-nav-dropdown-toggle>
+                  {{ link.title }}
+                  {% render 'icon', icon: 'chevron-down', size: 14 %}
+                </button>
+                <div class="site-header__nav-dropdown-panel">
+                  {% for child in link.links %}
+                    <a href="{{ child.url }}">{{ child.title }}</a>
+                  {% endfor %}
+                </div>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{ link.url }}">
+                  {{ link.title }}
+                  {% if link.title == 'חבילות' %}
+                    <span class="site-header__badge">🔥 חדש</span>
+                  {% elsif link.title == 'מתכונים' %}
+                    <span class="site-header__badge">חדש</span>
+                  {% endif %}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </nav>
+
+    {%- comment -%} Left side (RTL trailing edge): distributor badge + search + cart {%- endcomment -%}
+    <div class="site-header__end">
+      {% if section.settings.distributor_badge != blank %}
+        <img
+          class="site-header__distributor-badge"
+          src="{{ section.settings.distributor_badge | image_url: width: 160 }}"
+          alt="Herbalife Independent Distributor"
+          width="120"
+          height="{{ 120 | divided_by: section.settings.distributor_badge.aspect_ratio | default: 40 }}"
+        >
+      {% endif %}
+
+      <button type="button" class="btn-icon btn-ghost" data-search-open aria-label="חיפוש">
+        {% render 'icon', icon: 'search' %}
+      </button>
+
+      <button type="button" class="btn-icon btn-ghost site-header__cart-btn" data-cart-open aria-label="עגלת קניות">
+        {% render 'icon', icon: 'shopping-bag' %}
+        {% if cart.item_count > 0 %}
+          <span class="site-header__cart-badge">{{ cart.item_count }}</span>
+        {% endif %}
+      </button>
+    </div>
+  </div>
+
+  {%- comment -%} Mobile menu panel {%- endcomment -%}
+  <div class="site-header__mobile-menu" data-mobile-menu>
+    <ul>
+      <li><a href="{{ routes.root_url }}">ראשי</a></li>
+      {% if menu %}
+        {% for link in menu.links %}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {% if link.links.size > 0 %}
+              <ul class="site-header__mobile-submenu">
+                {% for child in link.links %}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+</header>
+
+{% stylesheet %}
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.site-header__start {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.site-header__hamburger {
+  display: none;
+}
+
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.site-header__logo img {
+  height: 40px;
+  width: auto;
+}
+
+.site-header__logo-placeholder {
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--color-primary);
+}
+
+.site-header__owner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-muted-foreground);
+  white-space: nowrap;
+}
+
+.site-header__owner a {
+  color: var(--color-muted-foreground);
+}
+
+.site-header__nav ul {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header__nav a,
+.site-header__nav-dropdown-trigger {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.site-header__nav a:hover,
+.site-header__nav-dropdown-trigger:hover {
+  color: var(--color-primary);
+}
+
+.site-header__badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-radius: 9999px;
+  padding: 1px 6px;
+  margin-inline-start: 4px;
+}
+
+.site-header__nav-dropdown {
+  position: relative;
+}
+
+.site-header__nav-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  inset-inline-start: 50%;
+  transform: translateX(50%);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card-hover);
+  padding: 10px;
+  min-width: 220px;
+  display: none;
+  flex-direction: column;
+  z-index: 50;
+}
+
+.site-header__nav-dropdown.is-open .site-header__nav-dropdown-panel {
+  display: flex;
+}
+
+.site-header__nav-dropdown-panel a {
+  font-weight: 400;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.site-header__nav-dropdown-panel a:hover {
+  background: var(--color-muted);
+}
+
+.site-header__end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.site-header__distributor-badge {
+  height: 36px;
+  width: auto;
+}
+
+.site-header__cart-btn {
+  position: relative;
+}
+
+.site-header__cart-badge {
+  position: absolute;
+  top: 2px;
+  inset-inline-end: 2px;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 3px;
+}
+
+.site-header__mobile-menu {
+  display: none;
+  background: var(--color-card);
+  border-top: 1px solid var(--color-border);
+  padding: 12px 16px 20px;
+}
+
+.site-header__mobile-menu.is-open {
+  display: block;
+}
+
+.site-header__mobile-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header__mobile-menu > ul > li > a {
+  display: block;
+  padding: 10px 0;
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__mobile-submenu {
+  padding-inline-start: 16px !important;
+}
+
+.site-header__mobile-submenu a {
+  border-bottom: none !important;
+  font-weight: 400 !important;
+  padding: 6px 0 !important;
+}
+
+@media (max-width: 1023px) {
+  .site-header__nav {
+    display: none;
+  }
+  .site-header__hamburger {
+    display: inline-flex;
+  }
+  .site-header__owner {
+    display: none;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "לוגו (ירוק)"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "רוחב לוגו",
+      "min": 80,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "default": 140
+    },
+    {
+      "type": "image_picker",
+      "id": "distributor_badge",
+      "label": "תג \"Herbalife Independent Distributor\""
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "תפריט ראשי",
+      "info": "פריט עם תתי-פריטים יוצג כתפריט נפתח (לדוגמה: \"מוצרים\")",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

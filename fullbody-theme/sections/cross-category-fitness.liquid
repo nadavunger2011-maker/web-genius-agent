@@ -1,0 +1,306 @@
+<section class="cross-category-fitness section-lg">
+  <div class="container">
+    <div class="cross-category-fitness__header">
+      <span class="cross-category-fitness__eyebrow">Cross-Category</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p class="fb-text-secondary">{{ section.settings.subtext }}</p>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="cross-category-fitness__grid">
+        {% for block in section.blocks %}
+          <div class="cross-category-fitness__card card" {{ block.shopify_attributes }}>
+            <div class="cross-category-fitness__icon-wrap">
+              {% render 'icon', icon: block.settings.icon, size: 28 %}
+            </div>
+            <h3 class="fb-h3">{{ block.settings.title }}</h3>
+            <p class="fb-text-secondary">{{ block.settings.description }}</p>
+
+            <div class="cross-category-fitness__testimonials">
+              {% for i in (1..4) %}
+                {% liquid
+                  case i
+                    when 1
+                      assign t_name = block.settings.testimonial_1_name
+                      assign t_age = block.settings.testimonial_1_age
+                      assign t_quote = block.settings.testimonial_1_quote
+                      assign t_result = block.settings.testimonial_1_result
+                    when 2
+                      assign t_name = block.settings.testimonial_2_name
+                      assign t_age = block.settings.testimonial_2_age
+                      assign t_quote = block.settings.testimonial_2_quote
+                      assign t_result = block.settings.testimonial_2_result
+                    when 3
+                      assign t_name = block.settings.testimonial_3_name
+                      assign t_age = block.settings.testimonial_3_age
+                      assign t_quote = block.settings.testimonial_3_quote
+                      assign t_result = block.settings.testimonial_3_result
+                    when 4
+                      assign t_name = block.settings.testimonial_4_name
+                      assign t_age = block.settings.testimonial_4_age
+                      assign t_quote = block.settings.testimonial_4_quote
+                      assign t_result = block.settings.testimonial_4_result
+                  endcase
+                %}
+                {% if t_name != blank %}
+                  <div class="cross-category-fitness__testimonial">
+                    <div class="cross-category-fitness__stars">
+                      {% for s in (1..5) %}
+                        {% render 'icon', icon: 'star', size: 12 %}
+                      {% endfor %}
+                    </div>
+                    <p class="cross-category-fitness__quote line-clamp-3">&quot;{{ t_quote }}&quot;</p>
+                    <p class="cross-category-fitness__name">{{ t_name }}{% if t_age != blank %}, {{ t_age }}{% endif %} — <span>{{ t_result }}</span></p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            <p class="cross-category-fitness__disclaimer">*התוצאות אינן אופייניות. תוצאות אישיות עשויות להשתנות.</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="cross-category-fitness__global-disclaimer">
+      <p>⚠️ מוצרי Herbalife אינם מיועדים לאבחון, טיפול, ריפוי או מניעה של מחלות כלשהן. תוצאות אישיות עשויות להשתנות. כל ההפניות לבקרת משקל קשורות לתוכנית ניהול משקל של הרבלייף הכוללת, בין היתר, תזונה מאוזנת, פעילות גופנית קבועה, שתיית נוזלים מספקת בכל יום, תוספי תזונה אם צריך ומנוחה נאותה.</p>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.cross-category-fitness {
+  background: color-mix(in srgb, var(--color-muted) 30%, var(--color-background));
+}
+
+.cross-category-fitness__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+
+.cross-category-fitness__eyebrow {
+  display: inline-block;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.cross-category-fitness__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .cross-category-fitness__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cross-category-fitness__card {
+  padding: 32px;
+}
+
+.cross-category-fitness__icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cross-category-fitness__card h3 {
+  margin-bottom: 8px;
+}
+
+.cross-category-fitness__card > p.fb-text-secondary {
+  margin-bottom: 24px;
+}
+
+.cross-category-fitness__testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cross-category-fitness__testimonial {
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+}
+
+.cross-category-fitness__stars {
+  display: flex;
+  gap: 2px;
+  color: var(--color-rating);
+  margin-bottom: 4px;
+}
+
+.cross-category-fitness__stars svg {
+  fill: currentColor;
+}
+
+.cross-category-fitness__quote {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.cross-category-fitness__name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+  margin: 8px 0 0;
+}
+
+.cross-category-fitness__name span {
+  color: var(--color-primary);
+}
+
+.cross-category-fitness__disclaimer {
+  font-size: 9px;
+  color: var(--color-muted-foreground);
+  margin: 16px 0 0;
+}
+
+.cross-category-fitness__global-disclaimer {
+  margin-top: 48px;
+  text-align: center;
+  padding: 16px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.cross-category-fitness__global-disclaimer p {
+  font-size: 12px;
+  color: var(--color-muted-foreground);
+  margin: 0;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "הצלחה בכל קטגוריה",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "כותרת",
+      "default": "הצלחה בכל קטגוריה"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "טקסט משנה",
+      "default": "מוצרי Herbalife תומכים במגוון מטרות — מהפחתת משקל ועד ביצועים ספורטיביים"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "קטגוריה",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "אייקון",
+          "options": [
+            { "value": "trending-down", "label": "ירידה" },
+            { "value": "zap", "label": "ברק" },
+            { "value": "dumbbell", "label": "משקולת" }
+          ],
+          "default": "trending-down"
+        },
+        { "type": "text", "id": "title", "label": "כותרת" },
+        { "type": "textarea", "id": "description", "label": "תיאור" },
+        { "type": "header", "content": "עדות 1" },
+        { "type": "text", "id": "testimonial_1_name", "label": "שם" },
+        { "type": "number", "id": "testimonial_1_age", "label": "גיל" },
+        { "type": "textarea", "id": "testimonial_1_quote", "label": "ציטוט" },
+        { "type": "text", "id": "testimonial_1_result", "label": "תוצאה" },
+        { "type": "header", "content": "עדות 2 (לא חובה)" },
+        { "type": "text", "id": "testimonial_2_name", "label": "שם" },
+        { "type": "number", "id": "testimonial_2_age", "label": "גיל" },
+        { "type": "textarea", "id": "testimonial_2_quote", "label": "ציטוט" },
+        { "type": "text", "id": "testimonial_2_result", "label": "תוצאה" },
+        { "type": "header", "content": "עדות 3 (לא חובה)" },
+        { "type": "text", "id": "testimonial_3_name", "label": "שם" },
+        { "type": "number", "id": "testimonial_3_age", "label": "גיל" },
+        { "type": "textarea", "id": "testimonial_3_quote", "label": "ציטוט" },
+        { "type": "text", "id": "testimonial_3_result", "label": "תוצאה" },
+        { "type": "header", "content": "עדות 4 (לא חובה)" },
+        { "type": "text", "id": "testimonial_4_name", "label": "שם" },
+        { "type": "number", "id": "testimonial_4_age", "label": "גיל" },
+        { "type": "textarea", "id": "testimonial_4_quote", "label": "ציטוט" },
+        { "type": "text", "id": "testimonial_4_result", "label": "תוצאה" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "הצלחה בכל קטגוריה",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "icon": "trending-down",
+            "title": "שליטה במשקל",
+            "description": "שייקי Formula 1 ותוספי תזונה לתמיכה בהפחתת משקל בריאה ומבוקרת.",
+            "testimonial_1_name": "גיל קרן",
+            "testimonial_1_age": 47,
+            "testimonial_1_quote": "הפחתתי כ-21 ק\"ג וצמצמתי כ-70 ס\"מ בהיקפים. אני מרגיש הרבה יותר אנרגטי, ערני וקליל. המטרה שלי היא להמשיך עד שאראה קוביות בבטן.",
+            "testimonial_1_result": "הפחתה של 21 ק\"ג",
+            "testimonial_2_name": "הדר כהן",
+            "testimonial_2_age": 28,
+            "testimonial_2_quote": "הפחתתי 35.5 ק\"ג וירדתי 6 מידות מכנסיים, מ-46 ל-36. למדתי לשמור על אורח חיים בריא ופעיל באמצעות שימוש נכון במוצרים והכוונה מהמאמן שלי.",
+            "testimonial_2_result": "הפחתה של 35.5 ק\"ג",
+            "testimonial_3_name": "רחלי ליברמן",
+            "testimonial_3_age": 29,
+            "testimonial_3_quote": "הפחתתי 25 ק\"ג ומעלה מ-14% אחוזי שומן. בעזרת הליווי והמעטפת התומכת שקיבלתי, הגעתי לצמצום משמעותי בהיקפים.",
+            "testimonial_3_result": "הפחתה של 25 ק\"ג",
+            "testimonial_4_name": "רועי חייט",
+            "testimonial_4_age": 21,
+            "testimonial_4_quote": "הפחתתי 48 ק\"ג ו-27 אחוזי שומן. לפני שבחרתי את הדרך, עמדתי בפני ניתוח קיבה. נתתי צ'אנס להרבלייף ועבד בגדול!",
+            "testimonial_4_result": "הפחתה של 48 ק\"ג"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "icon": "zap",
+            "title": "תזונה יומית וחיוניות",
+            "description": "ויטמינים, מינרלים ותוספים לאנרגיה יומית ותחושת חיוניות.",
+            "testimonial_1_name": "יובל לוי",
+            "testimonial_1_age": 24,
+            "testimonial_1_quote": "ההישגים הם בראש ובראשונה הביטחון שלי, השמחה שלי והסיפוק. קיבלתי את החיים שלי בחזרה, ואני אוהבת שאני עוסקת בתחום שמאפשר לי לעזור לאנשים.",
+            "testimonial_1_result": "ביטחון וסיפוק"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "icon": "dumbbell",
+            "title": "ספורט וביצועים",
+            "description": "קו H24 לספורטאים — חלבון, התאוששות ואנרגיה לביצועים מיטביים.",
+            "testimonial_1_name": "ספיר מהצרי",
+            "testimonial_1_age": 30,
+            "testimonial_1_quote": "הפחתתי 28 ק\"ג ו-19 אחוזי שומן. האוכל כבר לא אויב שלי, קיבלתי שליטה על החיים שלי והביצועים הספורטיביים השתפרו באופן מדהים.",
+            "testimonial_1_result": "הפחתה של 28 ק\"ג"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

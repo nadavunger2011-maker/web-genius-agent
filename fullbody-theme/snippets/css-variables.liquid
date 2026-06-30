@@ -1,0 +1,37 @@
+{%- liquid
+  assign rgb_primary = '27, 152, 73'
+-%}
+<style>
+  :root {
+    --color-background: {{ settings.color_background }};
+    --color-foreground: {{ settings.color_foreground }};
+    --color-card: {{ settings.color_card }};
+    --color-primary: {{ settings.color_primary }};
+    --color-primary-dark: {{ settings.color_primary_dark }};
+    --color-primary-foreground: {{ settings.color_primary_foreground }};
+    --color-primary-rgb: {{ rgb_primary }};
+    --color-muted: {{ settings.color_muted }};
+    --color-muted-foreground: {{ settings.color_muted_foreground }};
+    --color-border: {{ settings.color_border }};
+    --color-input: {{ settings.color_border }};
+    --color-error: {{ settings.color_error }};
+    --color-rating: #EAB308;
+
+    --radius: 12px;
+    --radius-md: 10px;
+    --radius-sm: 8px;
+
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-cta: 0 4px 16px rgba(var(--color-primary-rgb), 0.25);
+
+    --gradient-hero: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    --gradient-cta: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+
+    --container-max-width: 1400px;
+    --container-padding: 16px;
+    --section-spacing-lg: 80px;
+    --section-spacing-md: 64px;
+    --header-height: 80px;
+  }
+</style>

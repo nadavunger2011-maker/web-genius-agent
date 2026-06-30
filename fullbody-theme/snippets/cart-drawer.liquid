@@ -1,0 +1,128 @@
+{%- comment -%}
+  Cart drawer — slides in from the LEFT even though content is RTL,
+  matching the source CartDrawer.tsx exactly.
+  Free shipping threshold: ₪299 (29900 minor units).
+{%- endcomment -%}
+
+{%- liquid
+  assign free_shipping_threshold = 29900
+  assign remaining = free_shipping_threshold | minus: cart.total_price
+  if remaining < 0
+    assign remaining = 0
+  endif
+  assign progress = cart.total_price | times: 100.0 | divided_by: free_shipping_threshold
+  if progress > 100
+    assign progress = 100
+  endif
+-%}
+
+<div class="cart-drawer-overlay" data-cart-drawer-overlay></div>
+
+<aside class="cart-drawer" data-cart-drawer aria-hidden="true">
+  <div class="cart-drawer__header">
+    <h2 class="fb-h3" style="display:flex;align-items:center;gap:8px;">
+      {% render 'icon' icon: 'shopping-bag' %}
+      עגלת קניות ({{ cart.item_count }})
+    </h2>
+    <button type="button" class="btn-icon btn-ghost" data-cart-close aria-label="סגור">
+      {% render 'icon' icon: 'x' %}
+    </button>
+  </div>
+
+  <div class="cart-drawer__body">
+    <div class="cart-drawer__shipping-bar">
+      {% if remaining > 0 %}
+        <span>חסרים לך עוד {{ remaining | money }} למשלוח חינם</span>
+      {% else %}
+        <span>🎉 זכית במשלוח חינם!</span>
+      {% endif %}
+      <div class="cart-drawer__shipping-track">
+        <div class="cart-drawer__shipping-fill" style="width: {{ progress }}%;"></div>
+      </div>
+    </div>
+
+    {% if cart.item_count == 0 %}
+      <p class="fb-text-secondary" style="text-align:center;padding:40px 0;">
+        העגלה שלך ריקה
+      </p>
+    {% else %}
+      {%- liquid
+        assign bundle_keys = ''
+      -%}
+      <form action="/cart/change" method="post" id="cart-drawer-form">
+        {% for item in cart.items %}
+          {%- liquid
+            assign bundle_id = item.properties['Bundle']
+          -%}
+          {% if bundle_id != blank %}
+            {%- comment -%} Bundle items render once per group, grouped below {%- endcomment -%}
+          {% else %}
+            <div class="cart-line" style="display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--color-border);">
+              <a href="{{ item.url }}" style="width:64px;height:64px;border-radius:var(--radius-sm);overflow:hidden;flex-shrink:0;background:var(--color-muted);">
+                {% if item.image %}
+                  <img src="{{ item.image | image_url: width: 128 }}" alt="{{ item.title | escape }}" width="64" height="64">
+                {% endif %}
+              </a>
+              <div style="flex:1;min-width:0;">
+                <a href="{{ item.url }}" class="fb-text-secondary" style="color:var(--color-foreground);font-weight:600;">{{ item.product.title }}</a>
+                {% if item.variant.title != 'Default Title' %}
+                  <div class="fb-text-caption">{{ item.variant.title }}</div>
+                {% endif %}
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                  <div style="display:flex;align-items:center;gap:6px;">
+                    <button type="submit" name="updates[{{ item.key }}]" value="{{ item.quantity | minus: 1 }}" class="btn-icon btn-outline btn-sm" style="width:28px;height:28px;" aria-label="-">−</button>
+                    <span class="fb-text-secondary">{{ item.quantity }}</span>
+                    <button type="submit" name="updates[{{ item.key }}]" value="{{ item.quantity | plus: 1 }}" class="btn-icon btn-outline btn-sm" style="width:28px;height:28px;" aria-label="+">+</button>
+                  </div>
+                  <span style="font-weight:700;">{{ item.final_line_price | money }}</span>
+                </div>
+              </div>
+              <button type="submit" name="updates[{{ item.key }}]" value="0" class="btn-icon btn-ghost" aria-label="הסר">
+                {% render 'icon' icon: 'trash' %}
+              </button>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {%- comment -%} Bundle groups {%- endcomment -%}
+        {% assign rendered_bundles = '' %}
+        {% for item in cart.items %}
+          {% assign bundle_id = item.properties['Bundle'] %}
+          {% assign already_rendered = false %}
+          {% if rendered_bundles contains bundle_id %}
+            {% assign already_rendered = true %}
+          {% endif %}
+          {% if bundle_id != blank and already_rendered == false %}
+            {% assign rendered_bundles = rendered_bundles | append: bundle_id | append: ',' %}
+            <div class="card" style="border-color:var(--color-primary);padding:14px;margin-bottom:12px;position:relative;">
+              <span class="fb-text-caption" style="background:var(--color-primary);color:var(--color-primary-foreground);border-radius:9999px;padding:2px 10px;position:absolute;top:-10px;right:14px;">
+                חבילה במחיר מיוחד
+              </span>
+              <strong style="font-size:14px;">{{ bundle_id }}</strong>
+              {% for inner in cart.items %}
+                {% if inner.properties['Bundle'] == bundle_id %}
+                  <div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0;">
+                    <span>{{ inner.product.title }} × {{ inner.quantity }}</span>
+                    <span>{{ inner.final_line_price | money }}</span>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </form>
+    {% endif %}
+
+    {%- render 'cart-upsell' -%}
+  </div>
+
+  <div class="cart-drawer__footer">
+    <div style="display:flex;justify-content:space-between;font-weight:700;font-size:18px;margin-bottom:14px;">
+      <span>סה"כ לתשלום</span>
+      <span>{{ cart.total_price | money }}</span>
+    </div>
+    <a href="/checkout" class="btn btn-primary btn-lg" style="width:100%;">
+      לתשלום
+    </a>
+  </div>
+</aside>

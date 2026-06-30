@@ -1,0 +1,457 @@
+{%- liquid
+  assign catalog_collection = collections[section.settings.collection]
+  if catalog_collection == blank
+    assign catalog_collection = collections.all
+  endif
+-%}
+
+<section id="products" class="product-catalog section-lg">
+  <div class="container">
+    <div class="product-catalog__header">
+      <span class="product-catalog__eyebrow">Herbalife Nutrition</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="sr-only">
+        {% if section.settings.seo_subheading_1 != blank %}<h3>{{ section.settings.seo_subheading_1 }}</h3>{% endif %}
+        {% if section.settings.seo_subheading_2 != blank %}<h3>{{ section.settings.seo_subheading_2 }}</h3>{% endif %}
+        {% if section.settings.seo_subheading_3 != blank %}<h3>{{ section.settings.seo_subheading_3 }}</h3>{% endif %}
+      </div>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="product-catalog__pills">
+        {% for block in section.blocks %}
+          {% liquid
+            assign pill_collection = collections[block.settings.collection]
+            assign is_active = false
+            if pill_collection.handle == catalog_collection.handle
+              assign is_active = true
+            endif
+          %}
+          <a
+            href="{{ pill_collection.url | default: '#products' }}"
+            class="product-catalog__pill {% if is_active %}is-active{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.label }}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="product-catalog__layout">
+      <aside class="product-catalog__sidebar" data-product-filters>
+        <button type="button" class="btn btn-outline product-catalog__mobile-filter-toggle" data-mobile-filters-toggle>
+          {% render 'icon', icon: 'chevron-down', size: 16 %}
+          סינון מוצרים
+        </button>
+
+        <div class="product-catalog__filters-panel" data-mobile-filters-panel>
+          {% if catalog_collection.filters.size > 0 %}
+            {% assign active_filter_count = 0 %}
+            {% for filter in catalog_collection.filters %}
+              {% assign active_filter_count = active_filter_count | plus: filter.active_values.size %}
+            {% endfor %}
+
+            {% if active_filter_count > 0 %}
+              <a href="{{ catalog_collection.url }}" class="product-catalog__clear-all">
+                נקה הכל ({{ active_filter_count }})
+              </a>
+            {% endif %}
+
+            {% for filter in catalog_collection.filters %}
+              <div class="product-catalog__filter-section" data-filter-section>
+                <button type="button" class="product-catalog__filter-toggle" data-filter-section-toggle>
+                  <span>{{ filter.label }}</span>
+                  {% render 'icon', icon: 'chevron-down', size: 16 %}
+                </button>
+                <div class="product-catalog__filter-body">
+                  {% if filter.type == 'price_range' %}
+                    <form>
+                      <div class="product-catalog__price-range">
+                        <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="מ-">
+                        <span>—</span>
+                        <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="עד">
+                      </div>
+                      <button type="submit" class="btn btn-outline btn-sm" style="margin-top:8px;">החל</button>
+                    </form>
+                  {% else %}
+                    {% for value in filter.values %}
+                      <label class="product-catalog__checkbox">
+                        <input
+                          type="checkbox"
+                          data-filter-value
+                          data-href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}"
+                          {% if value.active %}checked{% endif %}
+                          {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                        >
+                        <span class="product-catalog__checkbox-box"></span>
+                        <span>{{ value.label }} ({{ value.count }})</span>
+                      </label>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </aside>
+
+      <div class="product-catalog__grid-wrap">
+        {% paginate catalog_collection.products by 12 %}
+          {% if catalog_collection.products.size > 0 %}
+            <div class="product-catalog__grid">
+              {% for product in catalog_collection.products %}
+                <a href="{{ product.url }}" class="product-card">
+                  <div class="product-card__image-wrap">
+                    {% if product.featured_image %}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 512 }}"
+                        alt="{{ product.title | append: ' - ' | append: product.type | append: ' הרבלייף כשר למהדרין | פולבאדי' | escape }}"
+                        width="256"
+                        height="256"
+                        loading="lazy"
+                      >
+                    {% endif %}
+                    {% if product.type != blank %}
+                      <span class="product-card__category-badge">{{ product.type }}</span>
+                    {% endif %}
+                  </div>
+                  <div class="product-card__body">
+                    <h3 class="fb-h4 line-clamp-2">{{ product.title }}</h3>
+                    {% if product.metafields.custom.short_hook != blank %}
+                      <p class="fb-text-secondary line-clamp-2">{{ product.metafields.custom.short_hook }}</p>
+                    {% endif %}
+                    <span class="product-card__details-link">
+                      לפרטים נוספים
+                      {% render 'icon', icon: 'arrow-right', size: 14 %}
+                    </span>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+
+            {% if paginate.pages > 1 %}
+              <div class="product-catalog__pagination">
+                {{ paginate | default_pagination: next: 'הבא', previous: 'הקודם' }}
+              </div>
+            {% endif %}
+          {% else %}
+            <p class="fb-text-secondary" style="text-align:center;padding:48px 0;">לא נמצאו מוצרים בקטגוריה זו.</p>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.product-catalog__header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+
+.product-catalog__eyebrow {
+  display: inline-block;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.product-catalog__pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.product-catalog__pill {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding-inline: 16px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-foreground);
+  background: var(--color-card);
+}
+
+.product-catalog__pill.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+.product-catalog__layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .product-catalog__layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.product-catalog__sidebar {
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .product-catalog__sidebar {
+    width: 256px;
+  }
+  .product-catalog__filters-panel {
+    position: sticky;
+    top: calc(var(--header-height) + 16px);
+  }
+}
+
+.product-catalog__mobile-filter-toggle {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 1024px) {
+  .product-catalog__mobile-filter-toggle {
+    display: none;
+  }
+}
+
+.product-catalog__filters-panel {
+  display: none;
+}
+
+.product-catalog__filters-panel.is-open {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .product-catalog__filters-panel {
+    display: block;
+  }
+}
+
+.product-catalog__clear-all {
+  display: block;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.product-catalog__filter-section {
+  border-bottom: 1px solid var(--color-border);
+  padding-block: 14px;
+}
+
+.product-catalog__filter-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0;
+}
+
+.product-catalog__filter-body {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.product-catalog__filter-section.is-open .product-catalog__filter-body {
+  display: flex;
+}
+
+.product-catalog__filter-toggle svg {
+  transition: transform 0.2s ease;
+}
+
+.product-catalog__filter-section.is-open .product-catalog__filter-toggle svg {
+  transform: rotate(180deg);
+}
+
+.product-catalog__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.product-catalog__checkbox-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.product-catalog__checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.product-catalog__checkbox input:checked + .product-catalog__checkbox-box {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.product-catalog__price-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-catalog__price-range input {
+  width: 100%;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  padding-inline: 8px;
+  font-size: 13px;
+}
+
+.product-catalog__grid-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.product-catalog__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .product-catalog__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .product-catalog__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.product-card__image-wrap {
+  position: relative;
+}
+
+.product-card__category-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.product-card__details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: auto;
+}
+
+.product-catalog__pagination {
+  margin-top: 32px;
+  text-align: center;
+}
+{% endstylesheet %}
+
+{% javascript %}
+document.addEventListener('change', function (e) {
+  if (e.target.matches('[data-filter-value]')) {
+    var href = e.target.getAttribute('data-href');
+    if (href) window.location.href = href;
+  }
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "קטלוג מוצרים",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "קולקציית ברירת מחדל"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "כותרת",
+      "default": "קטלוג מוצרי הרבלייף: פתרונות תזונה מתקדמים"
+    },
+    {
+      "type": "text",
+      "id": "seo_subheading_1",
+      "label": "כותרת משנה ל-SEO 1 (מוסתרת חזותית)",
+      "default": "ירידה במשקל וחיטוב"
+    },
+    {
+      "type": "text",
+      "id": "seo_subheading_2",
+      "label": "כותרת משנה ל-SEO 2 (מוסתרת חזותית)",
+      "default": "תזונת ספורט H24"
+    },
+    {
+      "type": "text",
+      "id": "seo_subheading_3",
+      "label": "כותרת משנה ל-SEO 3 (מוסתרת חזותית)",
+      "default": "חיוניות ותזונה יומית"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_pill",
+      "name": "קטגוריה",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "קולקציה" },
+        { "type": "text", "id": "label", "label": "תווית", "default": "הכל" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "קטלוג מוצרים",
+      "blocks": [
+        { "type": "category_pill", "settings": { "label": "הכל" } },
+        { "type": "category_pill", "settings": { "label": "אבקות חלבון" } },
+        { "type": "category_pill", "settings": { "label": "ספורט ואנרגיה" } },
+        { "type": "category_pill", "settings": { "label": "חטיפי חלבון" } },
+        { "type": "category_pill", "settings": { "label": "ויטמינים ומינרלים" } },
+        { "type": "category_pill", "settings": { "label": "תה ומשקאות" } },
+        { "type": "category_pill", "settings": { "label": "עיכול והידרציה" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

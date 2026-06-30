@@ -1,0 +1,78 @@
+<section class="final-cta section-md">
+  <div class="container final-cta__inner">
+    <h2>{{ section.settings.heading }}</h2>
+    <p class="final-cta__subtext">{{ section.settings.subtext }}</p>
+    <a href="{{ section.settings.button_link | default: '#' }}" class="btn btn-lg final-cta__btn">
+      {{ section.settings.button_label }}
+    </a>
+  </div>
+</section>
+
+{% stylesheet %}
+.final-cta {
+  background: var(--color-primary);
+}
+
+.final-cta__inner {
+  text-align: center;
+  max-width: 600px;
+}
+
+.final-cta h2 {
+  color: var(--color-primary-foreground);
+}
+
+.final-cta__subtext {
+  font-size: 16px;
+  color: var(--color-primary-foreground);
+  opacity: 0.8;
+  margin: 16px 0 32px;
+}
+
+.final-cta__btn {
+  background: var(--color-primary-foreground);
+  color: var(--color-primary);
+}
+
+.final-cta__btn:hover {
+  opacity: 0.9;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "קריאה לפעולה סופית",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "כותרת",
+      "default": "מוכנים להתחיל?"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "טקסט משנה",
+      "default": "צרו קשר לייעוץ תזונה אישי ותוכנית מותאמת אישית"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "טקסט כפתור",
+      "default": "צרו קשר לייעוץ"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "קישור כפתור",
+      "default": "/pages/contact"
+    }
+  ],
+  "presets": [
+    {
+      "name": "קריאה לפעולה סופית"
+    }
+  ]
+}
+{% endschema %}

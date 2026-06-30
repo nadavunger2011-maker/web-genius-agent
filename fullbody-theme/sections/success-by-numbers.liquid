@@ -1,0 +1,159 @@
+<section class="success-by-numbers section-md">
+  <div class="container">
+    <div class="success-by-numbers__header">
+      <h2>{{ section.settings.heading }}</h2>
+      <p class="fb-text-secondary">{{ section.settings.subtext }}</p>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="success-by-numbers__grid">
+        {% for block in section.blocks %}
+          <div class="success-by-numbers__stat" {{ block.shopify_attributes }}>
+            <div class="success-by-numbers__icon-wrap">
+              {% render 'icon', icon: block.settings.icon, size: 24 %}
+            </div>
+            <p class="success-by-numbers__value">
+              {{ block.settings.value }}
+              {% if block.settings.suffix != blank %}<span class="success-by-numbers__suffix">{{ block.settings.suffix }}</span>{% endif %}
+            </p>
+            <p class="success-by-numbers__label">{{ block.settings.label }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <p class="success-by-numbers__disclaimer">*התוצאות אינן אופייניות. תוצאות אישיות עשויות להשתנות. כל ההפניות לבקרת משקל קשורות לתוכנית ניהול משקל של הרבלייף הכוללת תזונה מאוזנת, פעילות גופנית קבועה, שתיית נוזלים מספקת ומנוחה נאותה.</p>
+  </div>
+</section>
+
+{% stylesheet %}
+.success-by-numbers {
+  background: var(--color-card);
+  border-block: 1px solid var(--color-border);
+}
+
+.success-by-numbers__header {
+  text-align: center;
+  margin: 0 auto 48px;
+}
+
+.success-by-numbers__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .success-by-numbers__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.success-by-numbers__stat {
+  text-align: center;
+  padding: 24px;
+  border-radius: var(--radius);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+}
+
+.success-by-numbers__icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.success-by-numbers__value {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .success-by-numbers__value {
+    font-size: 36px;
+  }
+}
+
+.success-by-numbers__suffix {
+  font-size: 18px;
+  margin-inline-end: 4px;
+}
+
+.success-by-numbers__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+  margin: 4px 0 0;
+}
+
+.success-by-numbers__disclaimer {
+  font-size: 10px;
+  color: var(--color-muted-foreground);
+  text-align: center;
+  margin: 32px 0 0;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "הצלחה במספרים",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "כותרת",
+      "default": "הצלחה במספרים"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "טקסט משנה",
+      "default": "נתונים אמיתיים מלקוחות Herbalife בישראל"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "נתון",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "אייקון",
+          "options": [
+            { "value": "trending-down", "label": "ירידה" },
+            { "value": "users", "label": "אנשים" },
+            { "value": "award", "label": "פרס" },
+            { "value": "heart", "label": "לב" }
+          ],
+          "default": "trending-down"
+        },
+        { "type": "text", "id": "value", "label": "ערך", "default": "35.5" },
+        { "type": "text", "id": "suffix", "label": "סיומת (לא חובה)", "default": "ק\"ג" },
+        { "type": "text", "id": "label", "label": "תווית", "default": "הפחתה מקסימלית" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "הצלחה במספרים",
+      "blocks": [
+        { "type": "stat", "settings": { "icon": "trending-down", "value": "35.5", "suffix": "ק\"ג", "label": "הפחתה מקסימלית" } },
+        { "type": "stat", "settings": { "icon": "users", "value": "6", "suffix": "", "label": "סיפורי הצלחה" } },
+        { "type": "stat", "settings": { "icon": "award", "value": "48", "suffix": "ק\"ג", "label": "שיא הפחתה - רועי" } },
+        { "type": "stat", "settings": { "icon": "heart", "value": "19%", "suffix": "", "label": "ירידה באחוזי שומן" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,93 @@
+<section class="trust-factors" dir="ltr">
+  <div class="fb-marquee-wrap">
+    <div class="fb-marquee-track">
+      {%- comment -%} Repeated twice back-to-back for the seamless -50% loop; each half repeats the logo set enough to fill wide screens. {%- endcomment -%}
+      {% for i in (1..2) %}
+        {% for r in (1..4) %}
+          {% for block in section.blocks %}
+            <div class="trust-factors__logo" {{ block.shopify_attributes }}>
+              {% if block.settings.image %}
+                <img class="trust-factors__logo-img" src="{{ block.settings.image | image_url: width: 240 }}" alt="{{ block.settings.alt | escape }}" loading="lazy" width="120" height="48">
+              {% else %}
+                <span class="trust-factors__logo-placeholder">{{ block.settings.alt }}</span>
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.trust-factors {
+  background: color-mix(in srgb, var(--color-muted) 30%, var(--color-background));
+  border-bottom: 1px solid var(--color-border);
+  padding-block: 32px;
+}
+
+@media (min-width: 768px) {
+  .trust-factors {
+    padding-block: 48px;
+  }
+}
+
+.trust-factors__logo {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .trust-factors__logo {
+    height: 96px;
+  }
+}
+
+.trust-factors__logo-img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.trust-factors__logo-placeholder {
+  font-size: 13px;
+  color: var(--color-muted-foreground);
+  white-space: nowrap;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Trust Factors",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "לוגו",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "תמונה" },
+        { "type": "text", "id": "alt", "label": "טקסט חלופי / שם" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Trust Factors",
+      "blocks": [
+        { "type": "logo", "settings": { "alt": "פולבאדי - מוצרי הרבלייף באישור משרד הבריאות הישראלי" } },
+        { "type": "logo", "settings": { "alt": "פולבאדי - הרבלייף ספק התזונה הרשמי של הוועד האולימפי בישראל" } },
+        { "type": "logo", "settings": { "alt": "פולבאדי - משווק מורשה מטעם הרבלייף ישראל" } },
+        { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - ONE ו-TheMarker" } },
+        { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - כלכליסט ו-ynet" } },
+        { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - ישראל היום וגלובס" } },
+        { "type": "logo", "settings": { "alt": "פולבאדי בתקשורת - וואלה ומעריב" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

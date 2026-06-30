@@ -1,0 +1,342 @@
+<section class="success-stories-banner">
+  <div class="container success-stories-banner__inner">
+    <h2>{{ section.settings.banner_heading }}</h2>
+  </div>
+</section>
+
+{% if section.blocks.size > 0 %}
+  <section class="testimonial-slider" data-carousel data-carousel-interval="6000">
+    <div class="container">
+      <div class="testimonial-slider__header">
+        <span class="testimonial-slider__eyebrow">Social Proof</span>
+        <h2>{{ section.settings.heading }}</h2>
+        <p class="fb-text-secondary">{{ section.settings.subtext }}</p>
+      </div>
+
+      <div class="testimonial-slider__viewport">
+        {% for block in section.blocks %}
+          <div class="testimonial-slider__slide {% if forloop.first %}is-active{% endif %}" data-carousel-slide {{ block.shopify_attributes }}>
+            <div class="testimonial-slider__card">
+              <span class="testimonial-slider__category">
+                {% render 'icon', icon: block.settings.category_icon, size: 14 %}
+                {{ block.settings.category_label }}
+              </span>
+
+              <div class="testimonial-slider__quote-icon">
+                {% render 'icon', icon: 'quote', size: 32 %}
+              </div>
+
+              <blockquote class="testimonial-slider__quote">&quot;{{ block.settings.quote }}&quot;</blockquote>
+
+              <div class="testimonial-slider__stars">
+                {% for i in (1..block.settings.rating) %}
+                  {% render 'icon', icon: 'star', size: 16 %}
+                {% endfor %}
+              </div>
+
+              <p class="testimonial-slider__name">{{ block.settings.name }}, {{ block.settings.age }}</p>
+              <p class="testimonial-slider__result">{{ block.settings.result }}</p>
+
+              <p class="testimonial-slider__disclaimer">*התוצאות אינן אופייניות. תוצאות אישיות עשויות להשתנות.</p>
+            </div>
+          </div>
+        {% endfor %}
+
+        {% if section.blocks.size > 1 %}
+          <button type="button" class="testimonial-slider__nav testimonial-slider__nav--prev" data-carousel-prev aria-label="הקודם">
+            {% render 'icon', icon: 'chevron-right', size: 20 %}
+          </button>
+          <button type="button" class="testimonial-slider__nav testimonial-slider__nav--next" data-carousel-next aria-label="הבא">
+            {% render 'icon', icon: 'chevron-left', size: 20 %}
+          </button>
+        {% endif %}
+      </div>
+
+      {% if section.blocks.size > 1 %}
+        <div class="testimonial-slider__dots">
+          {% for block in section.blocks %}
+            <button type="button" class="testimonial-slider__dot {% if forloop.first %}is-active{% endif %}" data-carousel-dot aria-label="עדות {{ forloop.index }}"></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% stylesheet %}
+.success-stories-banner {
+  background: color-mix(in srgb, var(--color-muted) 20%, var(--color-background));
+  padding-top: 48px;
+}
+
+.success-stories-banner__inner {
+  text-align: center;
+}
+
+.success-stories-banner h2 {
+  margin: 0;
+}
+
+.testimonial-slider {
+  padding-block: 80px;
+}
+
+.testimonial-slider__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+
+.testimonial-slider__eyebrow {
+  display: inline-block;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.testimonial-slider__viewport {
+  position: relative;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.testimonial-slider__slide {
+  display: none;
+}
+
+.testimonial-slider__slide.is-active {
+  display: block;
+}
+
+.testimonial-slider__card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+}
+
+@media (min-width: 768px) {
+  .testimonial-slider__card {
+    padding: 48px;
+  }
+}
+
+.testimonial-slider__category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  margin-bottom: 24px;
+}
+
+.testimonial-slider__quote-icon {
+  color: var(--color-primary);
+  opacity: 0.2;
+  transform: rotate(180deg);
+  margin-bottom: 16px;
+}
+
+.testimonial-slider__quote {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-foreground);
+  margin: 0 0 24px;
+}
+
+@media (min-width: 768px) {
+  .testimonial-slider__quote {
+    font-size: 20px;
+  }
+}
+
+.testimonial-slider__stars {
+  display: flex;
+  gap: 2px;
+  color: var(--color-rating);
+  margin-bottom: 16px;
+}
+
+.testimonial-slider__stars svg {
+  fill: currentColor;
+}
+
+.testimonial-slider__name {
+  font-weight: 700;
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.testimonial-slider__result {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.testimonial-slider__disclaimer {
+  font-size: 10px;
+  color: var(--color-muted-foreground);
+  border-top: 1px solid var(--color-border);
+  margin-top: 24px;
+  padding-top: 16px;
+}
+
+.testimonial-slider__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-slider__nav--prev {
+  right: -16px;
+}
+
+.testimonial-slider__nav--next {
+  left: -16px;
+}
+
+@media (min-width: 768px) {
+  .testimonial-slider__nav--prev {
+    right: -56px;
+  }
+  .testimonial-slider__nav--next {
+    left: -56px;
+  }
+}
+
+.testimonial-slider__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.testimonial-slider__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--color-border);
+  border: none;
+  padding: 0;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.testimonial-slider__dot.is-active {
+  background: var(--color-primary);
+  transform: scale(1.25);
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "סיפורי הצלחה (סליידר)",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "banner_heading",
+      "label": "כותרת באנר עליון",
+      "default": "סיפורי הצלחה ותוצאות בשטח"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "כותרת",
+      "default": "סיפורי הצלחה אמיתיים"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "טקסט משנה",
+      "default": "אנשים אמיתיים, תוצאות אמיתיות — ישירות מתוך הקהילה שלנו"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "עדות",
+      "settings": [
+        { "type": "text", "id": "name", "label": "שם", "default": "שם הלקוח" },
+        { "type": "number", "id": "age", "label": "גיל" },
+        {
+          "type": "select",
+          "id": "category_icon",
+          "label": "אייקון קטגוריה",
+          "options": [
+            { "value": "trending-down", "label": "שליטה במשקל" },
+            { "value": "leaf", "label": "תזונה יומית" },
+            { "value": "dumbbell", "label": "ספורט וביצועים" }
+          ],
+          "default": "trending-down"
+        },
+        { "type": "text", "id": "category_label", "label": "תווית קטגוריה", "default": "שליטה במשקל" },
+        { "type": "textarea", "id": "quote", "label": "ציטוט" },
+        { "type": "text", "id": "result", "label": "תוצאה" },
+        { "type": "range", "id": "rating", "label": "דירוג", "min": 1, "max": 5, "default": 5 }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "סיפורי הצלחה (סליידר)",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "הדר כהן",
+            "age": 28,
+            "category_icon": "trending-down",
+            "category_label": "שליטה במשקל",
+            "quote": "הפחתתי 35.5 ק\"ג וירדתי 6 מידות מכנסיים, מ-46 ל-36. למדתי לשמור על אורח חיים בריא ופעיל באמצעות שימוש נכון במוצרים והכוונה מהמאמן שלי.",
+            "result": "הפחתה של 35.5 ק\"ג",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "יובל לוי",
+            "age": 24,
+            "category_icon": "leaf",
+            "category_label": "תזונה יומית",
+            "quote": "ההישגים הם בראש ובראשונה הביטחון שלי, השמחה שלי והסיפוק. קיבלתי את החיים שלי בחזרה, ואני אוהבת שאני עוסקת בתחום שמאפשר לי לעזור לאנשים.",
+            "result": "ביטחון וסיפוק",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "ספיר מהצרי",
+            "age": 30,
+            "category_icon": "trending-down",
+            "category_label": "שליטה במשקל",
+            "quote": "הפחתתי 28 ק\"ג ו-19 אחוזי שומן. האוכל כבר לא אויב שלי, קיבלתי שליטה על החיים שלי והביצועים הספורטיביים השתפרו באופן מדהים.",
+            "result": "הפחתה של 28 ק\"ג",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

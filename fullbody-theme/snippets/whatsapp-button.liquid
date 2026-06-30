@@ -1,0 +1,31 @@
+{%- comment -%}
+  Floating WhatsApp button — present site-wide in the source (WhatsAppButton.tsx)
+  but NOT one of the 17 listed homepage sections. Kept as a floating element,
+  same as the cart/search, and made toggleable via theme settings.
+  Flagged in the final compromises report.
+{%- endcomment -%}
+<div class="whatsapp-fab" data-whatsapp-fab>
+  <div class="whatsapp-fab__popup">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <strong>FullBody</strong>
+    </div>
+    <p class="fb-text-secondary" style="margin:0 0 12px;">
+      היי! איך אפשר לעזור לך היום? 😊
+    </p>
+    <a href="{{ settings.whatsapp_link }}" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;background:#25D366;">
+      התחל שיחה
+    </a>
+  </div>
+  <a
+    href="{{ settings.whatsapp_link }}"
+    target="_blank"
+    rel="noopener"
+    class="whatsapp-fab__btn"
+    data-whatsapp-fab-btn
+    aria-label="פתח וואטסאפ"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.93-9.92-9.93zm5.83 14.02c-.25.7-1.45 1.34-2 1.43-.51.08-1.15.12-1.86-.12-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.27-5.06-4.47-.15-.2-1.21-1.61-1.21-3.07s.76-2.18 1.03-2.48c.27-.3.6-.37.79-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.88.95-1.18.2-.3.4-.25.67-.15.27.1 1.73.82 2.02.97.3.15.5.22.57.35.07.13.07.75-.18 1.45z"/>
+    </svg>
+  </a>
+</div>

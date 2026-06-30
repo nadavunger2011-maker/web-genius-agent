@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "item1": { "type": "item", "settings": { "text": "מוצרי Herbalife מקוריים" } },
+        "item2": { "type": "item", "settings": { "text": "משלוח חינם מעל ₪299" } }
+      },
+      "block_order": ["item1", "item2"]
+    }
+  },
+  "current": "Default",
+  "presets": {
+    "Default": {}
+  }
+}

@@ -1,0 +1,94 @@
+<section class="trust-badges section-md">
+  <div class="container trust-badges__grid">
+    {% for block in section.blocks %}
+      <div class="trust-badges__item" {{ block.shopify_attributes }}>
+        <div class="trust-badges__icon-wrap">
+          {% render 'icon', icon: block.settings.icon, size: 28 %}
+        </div>
+        <h3 class="fb-h4">{{ block.settings.title }}</h3>
+        <p class="fb-text-secondary">{{ block.settings.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+.trust-badges {
+  background: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trust-badges__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 16px;
+}
+
+@media (min-width: 768px) {
+  .trust-badges__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.trust-badges__item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.trust-badges__icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "תגי אמון",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "תג",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "אייקון",
+          "options": [
+            { "value": "leaf", "label": "עלה" },
+            { "value": "truck", "label": "משאית" },
+            { "value": "shield-check", "label": "מגן" },
+            { "value": "dumbbell", "label": "משקולת" },
+            { "value": "award", "label": "פרס" }
+          ],
+          "default": "leaf"
+        },
+        { "type": "text", "id": "title", "label": "כותרת", "default": "מוצרים מקוריים" },
+        { "type": "text", "id": "text", "label": "תיאור", "default": "Herbalife מקורי 100%" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "תגי אמון",
+      "blocks": [
+        { "type": "badge", "settings": { "icon": "leaf", "title": "מוצרים מקוריים", "text": "Herbalife מקורי 100%" } },
+        { "type": "badge", "settings": { "icon": "truck", "title": "משלוח מהיר", "text": "עד 3 ימי עסקים" } },
+        { "type": "badge", "settings": { "icon": "shield-check", "title": "תשלום מאובטח", "text": "SSL מוצפן" } },
+        { "type": "badge", "settings": { "icon": "dumbbell", "title": "ייעוץ מקצועי", "text": "ליווי אישי ותוכנית תזונה" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

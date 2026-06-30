@@ -1,0 +1,290 @@
+{%- liquid
+  assign nav_menu = linklists[section.settings.nav_menu]
+  assign legal_menu = linklists[section.settings.legal_menu]
+-%}
+<footer class="site-footer">
+  <div class="site-footer__trust">
+    <div class="container">
+      <div class="site-footer__trust-grid">
+        <div class="site-footer__trust-item">
+          {% render 'icon', icon: 'shield-check', size: 24 %}
+          <h3>תשלום מאובטח</h3>
+          <p>הצפנת SSL 256-bit</p>
+        </div>
+        <div class="site-footer__trust-item">
+          {% render 'icon', icon: 'truck', size: 24 %}
+          <h3>משלוח מהיר</h3>
+          <p>3-5 ימי עסקים</p>
+        </div>
+        <div class="site-footer__trust-item">
+          {% render 'icon', icon: 'award', size: 24 %}
+          <h3>מותגים מובילים</h3>
+          <p>Herbalife Nutrition</p>
+        </div>
+        <div class="site-footer__trust-item">
+          {% render 'icon', icon: 'credit-card', size: 24 %}
+          <h3>אפשרויות תשלום</h3>
+          <p>כרטיסי אשראי ופייפאל</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer__main">
+    <div class="container">
+      <div class="site-footer__columns">
+        <div class="site-footer__column">
+          <h4>מידע וניווט</h4>
+          {% if nav_menu %}
+            <ul>
+              {% for link in nav_menu.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="site-footer__column">
+          <h4>מדיניות משפטית</h4>
+          {% if legal_menu %}
+            <ul>
+              {% for link in legal_menu.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="site-footer__column site-footer__contact">
+          <h4>יצירת קשר</h4>
+          <p class="site-footer__owner">{{ settings.owner_name }} - מפיץ עצמאי הרבלייף</p>
+          <p>ח.פ: {{ settings.company_id }}</p>
+          <div class="site-footer__contact-row">
+            {% render 'icon', icon: 'map-pin', size: 16 %}
+            <span>{{ settings.address }}</span>
+          </div>
+          <div class="site-footer__contact-row">
+            {% render 'icon', icon: 'mail', size: 16 %}
+            <a href="mailto:{{ settings.email }}">{{ settings.email }}</a>
+          </div>
+          <div class="site-footer__contact-row">
+            {% render 'icon', icon: 'phone', size: 16 %}
+            <a href="tel:{{ settings.footer_phone | remove: '-' }}">{{ settings.footer_phone }}</a>
+          </div>
+          <div class="site-footer__hours">
+            <p class="site-footer__hours-title">שעות פעילות:</p>
+            <p>{{ settings.hours_weekday }}</p>
+            <p>{{ settings.hours_friday }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer__disclaimer">
+        <p>
+          כל ההתייחסויות לבקרת משקל קשורות לתוכנית בקרת המשקל של הרבלייף הכוללת, בין היתר, תזונה מאוזנת, פעילות גופנית קבועה, שתיית נוזלים מספקת, תוספי תזונה במידת הצורך ומנוחה נאותה. התוצאות הן אישיות ועשויות להשתנות.
+        </p>
+        <p>
+          מוצרי הרבלייף אינם מיועדים לדיאגנוזה, לטיפול, לריפוי או למניעה של מחלות. האתר מופעל ע"י מפיץ עצמאי ואינו האתר הרשמי של חברת הרבלייף ישראל.
+        </p>
+        <p>
+          נשים בהריון, נשים מניקות, אנשים הנוטלים תרופות מרשם וילדים – יש להיוועץ ברופא לפני השימוש.
+        </p>
+        <div class="site-footer__disclaimer-block">
+          <p class="site-footer__disclaimer-title">דיסקליימר תוצאות (עבור תוצאות במלל ו/או בתמונות):</p>
+          <p>
+            כל ההפניות לבקרת משקל קשורות לתוכנית ניהול משקל של הרבלייף, הכוללת, בין היתר, תזונה מאוזנת, פעילות גופנית קבועה, שתיית נוזלים מספקת בכל יום, תוספי תזונה אם צריך ומנוחה נאותה. תוצאות אישיות עשויות להשתנות.
+          </p>
+        </div>
+        <div class="site-footer__disclaimer-block">
+          <p class="site-footer__disclaimer-title">דיסקליימר רווחים (באם מפרסמים באתר את ההזדמנות העסקית):</p>
+          <p>
+            ההכנסות חלות על הפרטים (או הדוגמאות) המתוארים ואינן מהוות ממוצע. הישגים משמעותיים מגיעים מעבודה קשה, השקעה והתמדה, רוב המפיצים מרוויחים הכנסה נוספת כלשהי.
+          </p>
+          <p>
+            למידע נוסף <a href="https://Herbalife.com/STE" target="_blank" rel="noopener noreferrer">Herbalife.com/STE</a>.
+          </p>
+        </div>
+        <p class="site-footer__copyright">© {{ 'now' | date: '%Y' }} FullBody - {{ settings.owner_name }}. כל הזכויות שמורות.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+.site-footer {
+  background: #000;
+  color: #fff;
+}
+
+.site-footer__trust {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-block: 32px;
+}
+
+.site-footer__trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .site-footer__trust-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.site-footer__trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-footer__trust-item h3 {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0;
+}
+
+.site-footer__trust-item p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.site-footer__main {
+  padding-block: 48px;
+}
+
+.site-footer__columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .site-footer__columns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.site-footer__column h4 {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-primary);
+  margin: 0 0 16px;
+}
+
+.site-footer__column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.site-footer__column ul a,
+.site-footer__contact a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.15s ease;
+}
+
+.site-footer__column ul a:hover,
+.site-footer__contact a:hover {
+  color: #fff;
+}
+
+.site-footer__contact {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.site-footer__contact p {
+  margin: 0 0 8px;
+}
+
+.site-footer__owner {
+  font-weight: 700;
+  color: #fff;
+}
+
+.site-footer__contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.site-footer__hours {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.site-footer__hours p {
+  margin: 0;
+}
+
+.site-footer__hours-title {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.site-footer__disclaimer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 32px;
+  max-width: 768px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.site-footer__disclaimer p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 12px;
+}
+
+.site-footer__disclaimer a {
+  text-decoration: underline;
+}
+
+.site-footer__disclaimer-block {
+  text-align: right;
+  margin: 0 0 8px;
+}
+
+.site-footer__disclaimer-title {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.site-footer__copyright {
+  font-size: 14px;
+  margin-top: 8px;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "פוטר",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "nav_menu",
+      "label": "תפריט ניווט (עמודה 1)",
+      "default": "footer"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "תפריט מדיניות משפטית (עמודה 2)",
+      "default": "footer"
+    }
+  ]
+}
+{% endschema %}
