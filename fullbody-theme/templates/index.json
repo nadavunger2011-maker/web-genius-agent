@@ -43,7 +43,7 @@
     "product-catalog": {
       "type": "product-catalog",
       "blocks": {
-        "pill1": { "type": "category_pill", "settings": { "label": "הכל" } },
+        "pill1": { "type": "category_pill", "settings": { "label": "הכל", "link": "/collections/all" } },
         "pill2": { "type": "category_pill", "settings": { "label": "אבקות חלבון" } },
         "pill3": { "type": "category_pill", "settings": { "label": "ספורט ואנרגיה" } },
         "pill4": { "type": "category_pill", "settings": { "label": "חטיפי חלבון" } },
@@ -179,7 +179,37 @@
       "block_order": ["cat1", "cat2", "cat3"]
     },
     "homepage-reviews": {
-      "type": "homepage-reviews"
+      "type": "homepage-reviews",
+      "blocks": {
+        "rev1": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "איתי שמואלי",
+            "rating": 5,
+            "title": "תוצאות מדהימות תוך חודש!",
+            "content": "התחלתי את התוכנית עם שייק Formula 1 בכל בוקר וכבר אחרי ארבעה שבועות הרגשתי הבדל אמיתי — ירדתי 4 ק\"ג, האנרגיה שלי עלתה ולא הרגשתי רעב בין הארוחות. שירות מקצועי ומוצר איכותי."
+          }
+        },
+        "rev2": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "נועה ברקוביץ'",
+            "rating": 5,
+            "title": "הליווי האישי שינה הכל",
+            "content": "מה שהפתיע אותי הכי הרבה היה הליווי האישי של נדב. הוא בנה לי תפריט שמתאים לאורח החיים שלי, ענה על כל שאלה ועזר לי להתמיד. הורדתי 11 ק\"ג ב-3 חודשים ואני עדיין בתהליך!"
+          }
+        },
+        "rev3": {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "אבי כהן",
+            "rating": 5,
+            "title": "מוצרים מקוריים, תוצאות אמיתיות",
+            "content": "רכשתי אבקת חלבון H24 לאחרי אימונים ואני מרגיש שיפור ניכר בהתאוששות. המוצרים מקוריים, המשלוח הגיע מהר ונדב זמין תמיד לייעוץ. ממליץ בחום לכל מי שרוצה לקחת את הכושר ברצינות."
+          }
+        }
+      },
+      "block_order": ["rev1", "rev2", "rev3"]
     },
     "blog-articles": {
       "type": "blog-articles",
