@@ -1,0 +1,475 @@
+<section
+  id="nb-hero-{{ section.id }}"
+  class="nb-hero"
+  style="
+    min-height: {{ section.settings.hero_height }}vh;
+    background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: {{ section.settings.bg_position }};
+    {% endif %}
+  "
+>
+  {% if section.settings.bg_image != blank and section.settings.overlay_opacity > 0 %}
+    <div
+      class="nb-hero__overlay"
+      style="background-color: {{ section.settings.overlay_color }}; opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+    ></div>
+  {% endif %}
+
+  <div class="nb-hero__content nb-hero__content--{{ section.settings.content_align }}">
+
+    {% if section.settings.eyebrow != blank %}
+      <p class="nb-hero__eyebrow nb-animate-up" style="color: {{ section.settings.eyebrow_color }}; animation-delay: 0.1s;">
+        {{ section.settings.eyebrow }}
+      </p>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h1
+        class="nb-hero__heading nb-animate-up"
+        style="color: {{ section.settings.heading_color }}; font-size: clamp(2rem, 5vw, {{ section.settings.heading_size }}px); animation-delay: 0.2s;"
+      >
+        {{ section.settings.heading }}
+      </h1>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <p class="nb-hero__subheading nb-animate-up" style="color: {{ section.settings.subheading_color }}; animation-delay: 0.35s;">
+        {{ section.settings.subheading }}
+      </p>
+    {% endif %}
+
+    <div class="nb-hero__cta-group nb-animate-up" style="animation-delay: 0.5s;">
+      {% if section.settings.btn_primary_label != blank %}
+        <a
+          href="{{ section.settings.btn_primary_url }}"
+          class="nb-btn nb-btn--primary"
+          style="background-color: {{ section.settings.btn_primary_bg }}; color: {{ section.settings.btn_primary_text }};"
+        >
+          {{ section.settings.btn_primary_label }}
+        </a>
+      {% endif %}
+
+      {% if section.settings.btn_secondary_label != blank %}
+        <a
+          href="{{ section.settings.btn_secondary_url }}"
+          class="nb-btn nb-btn--secondary"
+          style="border-color: {{ section.settings.btn_secondary_border }}; color: {{ section.settings.btn_secondary_text }};"
+        >
+          {{ section.settings.btn_secondary_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="nb-hero__trust-badges nb-animate-up" style="animation-delay: 0.65s;">
+        {% for block in section.blocks %}
+          {% if block.type == 'trust_badge' %}
+            <div class="nb-trust-badge" {{ block.shopify_attributes }}>
+              {% if block.settings.icon != blank %}
+                <img
+                  src="{{ block.settings.icon | image_url: width: 48 }}"
+                  alt="{{ block.settings.label }}"
+                  width="24"
+                  height="24"
+                  loading="lazy"
+                >
+              {% else %}
+                <span class="nb-trust-badge__icon">{{ block.settings.emoji }}</span>
+              {% endif %}
+              <span style="color: {{ section.settings.badge_text_color }};">{{ block.settings.label }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #nb-hero-{{ section.id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    direction: rtl;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__content--center {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__content--right { text-align: right; }
+  #nb-hero-{{ section.id }} .nb-hero__content--left { text-align: left; }
+
+  #nb-hero-{{ section.id }} .nb-hero__eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__heading {
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 22px;
+    max-width: 820px;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__subheading {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.75;
+    max-width: 580px;
+    margin: 0 0 38px;
+    opacity: 0.9;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__content--center .nb-hero__cta-group {
+    justify-content: center;
+  }
+
+  #nb-hero-{{ section.id }} .nb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 34px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease, opacity 0.2s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    min-width: 160px;
+    letter-spacing: 0.01em;
+  }
+
+  #nb-hero-{{ section.id }} .nb-btn--primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  }
+
+  #nb-hero-{{ section.id }} .nb-btn--secondary {
+    background: transparent;
+    border-width: 2px;
+    border-style: solid;
+  }
+
+  #nb-hero-{{ section.id }} .nb-btn--secondary:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    align-items: center;
+  }
+
+  #nb-hero-{{ section.id }} .nb-hero__content--center .nb-hero__trust-badges {
+    justify-content: center;
+  }
+
+  #nb-hero-{{ section.id }} .nb-trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  #nb-hero-{{ section.id }} .nb-trust-badge__icon {
+    font-size: 1.15rem;
+  }
+
+  /* Entrance animations */
+  #nb-hero-{{ section.id }} .nb-animate-up {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: nbFadeUp-{{ section.id }} 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes nbFadeUp-{{ section.id }} {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 767px) {
+    #nb-hero-{{ section.id }} .nb-hero__content {
+      padding: 60px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #nb-hero-{{ section.id }} .nb-hero__cta-group {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    #nb-hero-{{ section.id }} .nb-btn {
+      width: 100%;
+    }
+
+    #nb-hero-{{ section.id }} .nb-hero__trust-badges {
+      justify-content: center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "div",
+  "class": "nb-hero-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "תמונה ורקע"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "תמונת רקע"
+    },
+    {
+      "type": "select",
+      "id": "bg_position",
+      "label": "מיקום תמונה",
+      "options": [
+        { "value": "center center", "label": "מרכז" },
+        { "value": "top center", "label": "למעלה" },
+        { "value": "bottom center", "label": "למטה" },
+        { "value": "center left", "label": "שמאל" },
+        { "value": "center right", "label": "ימין" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "צבע רקע (ללא תמונה)",
+      "default": "#0D1F2D"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "צבע כיסוי Overlay",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "עוצמת כיסוי (שקיפות)",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "גובה ה-Hero",
+      "default": 85
+    },
+    {
+      "type": "header",
+      "content": "תוכן וטקסטים"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "יישור תוכן",
+      "options": [
+        { "value": "right", "label": "ימין (RTL ברירת מחדל)" },
+        { "value": "center", "label": "מרכז" },
+        { "value": "left", "label": "שמאל" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "שורת פתיחה (Eyebrow)",
+      "default": "100% טבעי · מוסמך · ישראלי"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "צבע שורת פתיחה",
+      "default": "#A8D5BA"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "כותרת ראשית",
+      "default": "בריאות שמגיעה מהטבע, מוכחת מדעית"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 32,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "גודל כותרת (מקסימום)",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "צבע כותרת",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "תת כותרת",
+      "default": "תוספי תזונה איכותיים שנבחרו בקפידה כדי לתמוך בגוף ובנפש שלך בכל שלב"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "צבע תת כותרת",
+      "default": "#E8F0EC"
+    },
+    {
+      "type": "header",
+      "content": "כפתור ראשי (Primary)"
+    },
+    {
+      "type": "text",
+      "id": "btn_primary_label",
+      "label": "טקסט כפתור",
+      "default": "לחנות שלנו"
+    },
+    {
+      "type": "url",
+      "id": "btn_primary_url",
+      "label": "קישור כפתור"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_bg",
+      "label": "רקע כפתור",
+      "default": "#2E7D52"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_text",
+      "label": "צבע טקסט כפתור",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "כפתור משני (Secondary)"
+    },
+    {
+      "type": "text",
+      "id": "btn_secondary_label",
+      "label": "טקסט כפתור",
+      "default": "קרא עוד"
+    },
+    {
+      "type": "url",
+      "id": "btn_secondary_url",
+      "label": "קישור כפתור"
+    },
+    {
+      "type": "color",
+      "id": "btn_secondary_border",
+      "label": "צבע מסגרת",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "btn_secondary_text",
+      "label": "צבע טקסט",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "תגי אמון (Trust Badges)"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "צבע טקסט תגים",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "תג אמון",
+      "settings": [
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "אמוג'י / סמל",
+          "default": "✓",
+          "info": "ישמש כאייקון אם לא הועלתה תמונה"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "אייקון מותאם (PNG/SVG)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "טקסט התג",
+          "default": "ללא חומרים מלאכותיים"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "blocks": [
+        { "type": "trust_badge", "settings": { "emoji": "🌿", "label": "100% טבעי" } },
+        { "type": "trust_badge", "settings": { "emoji": "🔬", "label": "מוכח מדעית" } },
+        { "type": "trust_badge", "settings": { "emoji": "🚚", "label": "משלוח מהיר" } },
+        { "type": "trust_badge", "settings": { "emoji": "⭐", "label": "אלפי לקוחות מרוצים" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
