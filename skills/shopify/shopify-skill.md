@@ -22,9 +22,9 @@
     <h3>{{ product.title }}</h3>
     <p>{{ product.price | money }}</p>
     {% if product.available %}
-      <button>הוסף לסל</button>
+      <button>{{ 'products.product.add_to_cart' | t }}</button>
     {% else %}
-      <p>אזל מהמלאי</p>
+      <p>{{ 'products.product.sold_out' | t }}</p>
     {% endif %}
   </div>
 {% endfor %}
@@ -51,7 +51,7 @@
       "type": "text",
       "id": "heading",
       "label": "כותרת",
-      "default": "ברוכים הבאים"
+      "default": "{{ config.brand.tagline }}"
     },
     {
       "type": "image_picker",
@@ -91,9 +91,9 @@
 
 ## Markets — מכירה בינלאומית
 ```javascript
-// זיהוי שוק נוכחי
-const market = Shopify.locale; // 'he', 'en', 'de'
-const currency = Shopify.currency.active; // 'ILS', 'USD'
+// זיהוי שוק נוכחי (locales/currency מוגדרים ב-config.json → platform.locales / commerce.currencyCode)
+const market = Shopify.locale;
+const currency = Shopify.currency.active;
 ```
 
 ---

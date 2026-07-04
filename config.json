@@ -1,0 +1,55 @@
+{
+  "$schema": "docs/config-guide.md",
+  "brand": {
+    "name": "YOUR_BRAND_NAME",
+    "tagline": "YOUR_BRAND_TAGLINE",
+    "domain": "your-store.com",
+    "logoUrl": "https://your-store.com/assets/logo.png",
+    "language": "he",
+    "country": "IL"
+  },
+  "platform": {
+    "type": "shopify",
+    "storeUrl": "https://your-store.myshopify.com",
+    "locales": ["he", "en"]
+  },
+  "commerce": {
+    "currencyCode": "ILS",
+    "currencySymbol": "₪",
+    "freeShippingThreshold": 200,
+    "returnPolicyDays": 30,
+    "orderCutoffTime": "14:00"
+  },
+  "design": {
+    "colors": {
+      "primary": "#1a1a2e",
+      "accent": "#e94560",
+      "success": "#27ae60",
+      "warning": "#f39c12",
+      "text": "#2d2d2d",
+      "textLight": "#6b7280",
+      "background": "#ffffff",
+      "backgroundLight": "#f9fafb",
+      "border": "#e5e7eb"
+    },
+    "fonts": {
+      "heading": "Heebo, sans-serif",
+      "body": "Rubik, sans-serif"
+    }
+  },
+  "analytics": {
+    "ga4MeasurementId": "G-XXXXXXXXXX",
+    "gtmContainerId": "GTM-XXXXXXX",
+    "googleAdsConversionId": "AW-XXXXXXXXX/YYYYYYY",
+    "metaPixelId": "000000000000000"
+  },
+  "socialProof": {
+    "averageRating": 4.8,
+    "reviewCount": 127
+  },
+  "sampleProduct": {
+    "name": "YOUR_SAMPLE_PRODUCT_NAME",
+    "price": 199,
+    "compareAtPrice": 299
+  }
+}

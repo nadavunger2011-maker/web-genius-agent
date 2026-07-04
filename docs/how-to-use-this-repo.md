@@ -23,7 +23,11 @@
 
 ### 3️⃣ API (מתקדם)
 ```python
+import json
 import anthropic
+
+with open('config.json') as f:
+    site_config = json.load(f)  # הגדרות המותג/החנות — ראו docs/config-guide.md
 
 with open('system-prompt/main-system-prompt.md') as f:
     system = f.read()
@@ -35,10 +39,13 @@ client = anthropic.Anthropic()
 message = client.messages.create(
     model="claude-opus-4-6",
     max_tokens=4096,
-    system=system + "\n\n# SEO Knowledge:\n" + seo_skill,
+    system=system + "\n\n# Site Config:\n" + json.dumps(site_config, ensure_ascii=False)
+                  + "\n\n# SEO Knowledge:\n" + seo_skill,
     messages=[{"role": "user", "content": "בצע אודיט SEO לחנות שלי"}]
 )
 ```
+
+> הערה: מפתחות סודיים (Shopify Admin API token, Meta CAPI access token וכד') לא נכנסים ל-`config.json` — הם צריכים לבוא ממשתני סביבה (`os.environ["SHOPIFY_ADMIN_TOKEN"]`) בסקריפט שמריץ את האינטגרציה בפועל.
 
 ---
 

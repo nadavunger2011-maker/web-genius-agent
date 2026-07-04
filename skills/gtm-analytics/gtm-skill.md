@@ -36,13 +36,13 @@ window.dataLayer = window.dataLayer || [];
 window.dataLayer.push({
   'event': 'add_to_cart',
   'ecommerce': {
-    'currency': 'ILS',
-    'value': 99.00,
+    'currency': '{{ config.commerce.currencyCode }}', // e.g. 'ILS'
+    'value': product.price,
     'items': [{
-      'item_id': 'SKU_123',
-      'item_name': 'שם מוצר',
-      'category': 'קטגוריה',
-      'price': 99.00,
+      'item_id': product.sku,
+      'item_name': product.title,
+      'category': product.category,
+      'price': product.price,
       'quantity': 1
     }]
   }
@@ -64,9 +64,9 @@ dataLayer.push({ event: 'begin_checkout', ecommerce: { items: [...] }});
 dataLayer.push({
   event: 'purchase',
   ecommerce: {
-    transaction_id: 'T12345',
-    value: 299.00,
-    currency: 'ILS',
+    transaction_id: order.id,
+    value: order.total,
+    currency: '{{ config.commerce.currencyCode }}',
     items: [...]
   }
 });
@@ -100,9 +100,9 @@ dataLayer.push({
 <!-- בדף תודה / Order Confirmation -->
 <script>
 gtag('event', 'conversion', {
-  'send_to': 'AW-XXXXXXXXX/YYYYYYY',
+  'send_to': '{{ config.analytics.googleAdsConversionId }}',
   'value': {{ order.total_price | divided_by: 100.0 }},
-  'currency': 'ILS',
+  'currency': '{{ config.commerce.currencyCode }}',
   'transaction_id': '{{ order.order_number }}',
   'email': '{{ customer.email }}' // Enhanced Conversion
 });

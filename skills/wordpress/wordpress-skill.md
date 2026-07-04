@@ -92,8 +92,11 @@ add_filter('woocommerce_checkout_fields', function($fields) {
 ### Hooks חשובים
 ```php
 // הוסף תוכן אחרי כפתור "הוסף לסל"
+// סף המשלוח החינם והמטבע מגיעים מ-config.json → commerce.freeShippingThreshold / currencySymbol
 add_action('woocommerce_after_add_to_cart_button', function() {
-    echo '<p class="trust-signal">🔒 תשלום מאובטח | 🚚 משלוח חינם מ-₪200</p>';
+    $threshold = get_option('site_config_free_shipping_threshold'); // מוזן מ-config.json
+    $currency_symbol = get_option('site_config_currency_symbol');
+    echo '<p class="trust-signal">🔒 תשלום מאובטח | 🚚 משלוח חינם מ-' . esc_html($currency_symbol . $threshold) . '</p>';
 });
 
 // הוסף תוכן בדף תודה

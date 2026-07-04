@@ -42,25 +42,27 @@ h1 { font-size: clamp(28px, 5vw, 48px); }
 h2 { font-size: clamp(22px, 4vw, 36px); }
 h3 { font-size: clamp(18px, 3vw, 24px); }
 
-/* בעברית */
-body { font-family: 'Heebo', 'Rubik', sans-serif; }
+/* בעברית — פונטים מוגדרים ב-config.json → design.fonts */
+body { font-family: {{ config.design.fonts.body }}; }
 ```
 
 ---
 
 ## Color System
 
+כל הצבעים מגיעים מ-`config.json` → `design.colors` (כדי להחליף מותג — משנים שם, לא כאן):
+
 ```css
 :root {
-  --color-primary: #1a1a2e;    /* צבע מותג */
-  --color-accent: #e94560;      /* CTA, Highlights */
-  --color-success: #27ae60;     /* ✓ Trust, In Stock */
-  --color-warning: #f39c12;     /* ⚠ Limited, Sale */
-  --color-text: #2d2d2d;
-  --color-text-light: #6b7280;
-  --color-bg: #ffffff;
-  --color-bg-light: #f9fafb;
-  --color-border: #e5e7eb;
+  --color-primary: {{ config.design.colors.primary }};    /* צבע מותג */
+  --color-accent: {{ config.design.colors.accent }};      /* CTA, Highlights */
+  --color-success: {{ config.design.colors.success }};    /* ✓ Trust, In Stock */
+  --color-warning: {{ config.design.colors.warning }};    /* ⚠ Limited, Sale */
+  --color-text: {{ config.design.colors.text }};
+  --color-text-light: {{ config.design.colors.textLight }};
+  --color-bg: {{ config.design.colors.background }};
+  --color-bg-light: {{ config.design.colors.backgroundLight }};
+  --color-border: {{ config.design.colors.border }};
 }
 ```
 

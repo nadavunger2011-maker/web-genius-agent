@@ -17,7 +17,7 @@ Disallow: /account
 Disallow: /search
 Allow: /
 
-Sitemap: https://your-store.com/sitemap.xml
+Sitemap: https://{{ config.brand.domain }}/sitemap.xml
 ```
 
 ### 2. Structured Data (Schema.org)
@@ -29,14 +29,14 @@ Sitemap: https://your-store.com/sitemap.xml
   "description": "תיאור המוצר",
   "offers": {
     "@type": "Offer",
-    "price": "99.00",
-    "priceCurrency": "ILS",
+    "price": "{{ product.price }}",
+    "priceCurrency": "{{ config.commerce.currencyCode }}",
     "availability": "https://schema.org/InStock"
   },
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "127"
+    "ratingValue": "{{ config.socialProof.averageRating }}",
+    "reviewCount": "{{ config.socialProof.reviewCount }}"
   }
 }
 ```
@@ -104,9 +104,10 @@ URL: /קטגוריה/מילת-מפתח-ראשית
 {% comment %} Canonical tag בshopify {% endcomment %}
 <link rel="canonical" href="{{ canonical_url }}">
 
-{% comment %} Hreflang לאתר רב שפה {% endcomment %}
-<link rel="alternate" hreflang="he" href="https://site.com/he/">
-<link rel="alternate" hreflang="en" href="https://site.com/en/">
+{% comment %} Hreflang לאתר רב שפה — locales מ-config.json → platform.locales {% endcomment %}
+{% for locale in config.platform.locales %}
+<link rel="alternate" hreflang="{{ locale }}" href="https://{{ config.brand.domain }}/{{ locale }}/">
+{% endfor %}
 ```
 
 ---
